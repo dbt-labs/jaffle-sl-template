@@ -1,0 +1,32 @@
+{
+  "name": "Python 3",
+  "image": "mcr.microsoft.com/devcontainers/python:0-3.10-bullseye",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/black:1": {},
+    "ghcr.io/devcontainers-contrib/features/meltano": {},
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/eitsupi/devcontainer-features/duckdb-cli:1": {},
+    "ghcr.io/eitsupi/devcontainer-features/go-task:1": {}
+  },
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "task deps",
+  "remoteEnv": {
+    "DATABASE": "duckdb",
+    "FILENAME": "jaffle_shop.duckdb"
+  },
+  // Configure tool-specific properties
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      },
+      "extensions": [
+        "dorzey.vscode-sqlfluff",
+        "esbenp.prettier-vscode",
+        "GitHub.codespaces"
+      ]
+    }
+  }
+}
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
