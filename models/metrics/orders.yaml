@@ -7,7 +7,7 @@ semantic_model:
 
   #The name of the dbt model and schema
   node_relation:
-    schema_name: dbt_jstein
+    schema_name: dbt_sl_test
     alias: orders
   #Entities. These usually corespond to keys in the table.
   entities:
