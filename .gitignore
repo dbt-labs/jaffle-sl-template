@@ -7,3 +7,7 @@ logs/
 reports/sources/*.csv
 .meltano
 .DS_Store
+venv
+semantic_manifest/
+semanitc_manifest.json
+profiles.yml

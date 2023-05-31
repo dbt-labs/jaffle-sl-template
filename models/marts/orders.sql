@@ -1,17 +1,11 @@
 {{
     config(
-        materialized = 'incremental',
+        materialized = 'table',
         unique_key = 'order_id'
     )
 }}
 
 with
-
-{#
-     DuckDB will see {{ this }} evaluate to `orders` and a CTE called `orders` as being the same
-     so when using DuckDB we append `_set` to any CTEs with the same name as {{ this }} to indicate
-     we're not executing a recursive statement
-#}
 
 orders_set as (
 
@@ -68,13 +62,13 @@ order_items_summary as (
                 when products.is_food_item = 1 then products.product_price
                 else 0
             end
-        ) as subtotal_drink_items,
+        ) as subtotal_food_items,
         sum(
             case
                 when products.is_drink_item = 1 then products.product_price
                 else 0
             end
-        ) as subtotal_food_items,
+        ) as subtotal_drink_items,
         sum(products.product_price) as subtotal
 
     from order_items

@@ -1,0 +1,88 @@
+---
+semantic_model:
+  #The name of the semantic model.
+  name: orders
+  description: |
+    Model containting order data. The grain of the table is the order id. 
+
+  #The name of the dbt model and schema
+  node_relation:
+    schema_name: dbt_jstein
+    alias: orders
+  #Entities. These usually corespond to keys in the table.
+  entities:
+    - name: order
+      type: primary
+      expr: order_id
+    - name: location
+      type: foreign
+      expr: location_id
+    - name: customer
+      type: foreign
+      expr: customer_id
+
+  #Measures. These are the aggregations on the columns in the table. 
+  measures:
+    - name: order_total
+      agg: sum
+      create_metric: True
+    - name: food_orders
+      expr: case when is_food_order then order_total else 0
+      agg: sum
+    - name: orders
+      expr: 1
+      agg: sum
+    - name: max_order_value
+      expr: order_total
+      agg: max    
+    - name: min_order_value
+      expr: order_total
+      agg: min   
+    - name: customers
+      expr: customer_id
+      agg: count_distinct
+    - name: average_order_value
+      expr: order_total
+      agg: average
+    - name: order_cost
+      agg: sum
+    - name: locations_with_orders
+      expr: location_id
+      agg: count_distinct
+      create_metric: true
+    - name: median_order_valie
+      expr: order_total
+      agg: median
+      create_metric: true
+    - name: order_value_p99
+      expr: order_total
+      agg: percentile
+      agg_params:
+        percentile: 0.99
+      create_metric: true
+    - name: discrete_order_value_p99
+      expr: order_total
+      agg: percentile
+      agg_params:
+        percentile: 0.99
+        use_discrete_percentile: true
+      create_metric: true
+
+ #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
+  dimensions:
+    - name: location_name
+      type: categorical
+    - name: ds
+      expr: ordered_at
+      type: time
+      type_params:
+        is_primary: True
+        time_granularity: day
+    - name: is_food_order
+      type: categorical
+    - name: is_drink_order
+      type: categorical
+    - name: order_total
+      type: categorical
+      
+
