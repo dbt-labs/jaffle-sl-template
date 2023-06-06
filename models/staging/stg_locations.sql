@@ -5,9 +5,9 @@ source as (
 
     select * from {{ source('ecom', 'raw_stores') }}
 
-    {# data runs to 2026, truncate timespan to desired range, 
-    current time as default #}
-    where opened_at <= {{ var('truncate_timespan_to') }}
+    -- {# data runs to 2026, truncate timespan to desired range, 
+    -- current time as default #}
+    -- where opened_at <= {{ var('truncate_timespan_to') }}
 
 ),
 

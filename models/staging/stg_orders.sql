@@ -1,3 +1,10 @@
+{{
+    config(
+        materialized = 'table',
+        unique_key = 'order_id'
+    )
+}}
+
 with
 
 source as (
@@ -6,7 +13,7 @@ source as (
 
     -- data runs to 2026, truncate timespan to desired range,
     -- current time as default
-    where ordered_at <= {{ var('truncate_timespan_to') }}
+    -- where ordered_at <= {{ var('truncate_timespan_to') }}
 
 ),
 
@@ -20,8 +27,8 @@ renamed as (
         customer as customer_id,
 
         ---------- properties
-        (order_total / 100.0)::float as order_total,
-        (tax_paid / 100.0)::float as tax_paid,
+        (order_total / 100.0) as order_total,
+        (tax_paid / 100.0) as tax_paid,
 
         ---------- timestamps
         ordered_at
