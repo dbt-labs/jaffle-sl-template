@@ -3,7 +3,7 @@ semantic_model:
   #The name of the semantic model.
   name: orders
   description: |
-    Model containting order data. The grain of the table is the order id. 
+    Model containting order data. The grain of the table is the order id.
 
   #The name of the dbt model and schema
   node_relation:
@@ -21,23 +21,23 @@ semantic_model:
       type: foreign
       expr: customer_id
 
-  #Measures. These are the aggregations on the columns in the table. 
+  #Measures. These are the aggregations on the columns in the table.
   measures:
     - name: order_total
       agg: sum
       create_metric: True
     - name: food_orders
-      expr: case when is_food_order then order_total else 0
+      expr: case when is_food_order then order_total else 0 end
       agg: sum
     - name: orders
       expr: 1
       agg: sum
     - name: max_order_value
       expr: order_total
-      agg: max    
+      agg: max
     - name: min_order_value
       expr: order_total
-      agg: min   
+      agg: min
     - name: customers
       expr: customer_id
       agg: count_distinct
@@ -68,7 +68,7 @@ semantic_model:
         use_discrete_percentile: true
       create_metric: true
 
- #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
+ #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
   dimensions:
     - name: location_name
       type: categorical
@@ -84,5 +84,3 @@ semantic_model:
       type: categorical
     - name: order_total
       type: categorical
-      
-
