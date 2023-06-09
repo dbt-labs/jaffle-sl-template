@@ -2,6 +2,8 @@
 semantic_model:
   #The name of the semantic model.
   name: customers
+  defaults:
+    agg_time_dimension: first_ordered_at
   description: |
     Customer dimension table. The grain of the table is one row per customer.
 
@@ -30,10 +32,8 @@ semantic_model:
     - name: first_ordered_at
       type: time 
       type_params:
-        is_primary: false
         time_granularity: day
     - name: last_ordered_at
       type: time 
       type_params:
-        is_primary: false
         time_granularity: day    

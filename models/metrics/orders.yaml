@@ -4,11 +4,14 @@ semantic_model:
   name: orders
   description: |
     Model containting order data. The grain of the table is the order id.
-
+  
   #The name of the dbt model and schema
-  node_relation:
-    schema_name: dbt_sl_test
-    alias: orders
+  # node_relation:
+  #   schema_name: dbt_sl_test
+  #   alias: orders
+  model: ref('orders')
+  defaults:
+    agg_time_dimension: ds
   #Entities. These usually corespond to keys in the table.
   entities:
     - name: order
@@ -76,11 +79,11 @@ semantic_model:
       expr: ordered_at
       type: time
       type_params:
-        is_primary: True
         time_granularity: day
     - name: is_food_order
       type: categorical
     - name: is_drink_order
       type: categorical
-    - name: order_total
+    - name: order_total_dim
       type: categorical
+      expr: order_total

@@ -1,0 +1,196 @@
+metric:
+  name: "east_coast_order_amount"
+  description: "Sum of orders from the east coast."
+  type: simple
+  type_params:
+    measures:
+      - orders
+  filter: |
+    {{dimension('location_name')}} in ('Philadelphia')
+# #This is a measure proxy type metric. You can define the metric as a seperate yaml document, like we've done below, or add the create_metric: True flag to the measure as a handy shorcut. 
+# ---
+# metric:
+#   name: "large_order"
+#   description: "Sum of orders from the east coast."
+#   type: SIMPLE
+#   type_params:
+#     measures:
+#       - orders
+#   filter: |
+#     {{dimension('order_total_dim')}} >= 20
+# ---
+# metric:
+#   name: "food_order_amount"
+#   description: "Sum order amoung for food orders."
+#   type: simple
+#   type_params:
+#     measures:
+#       - food_orders
+# ---
+# metric:
+#   name: "food_order_pct"
+#   description: "The food cost as the % of the total order"
+#   type: ratio
+#   type_params: 
+#     numerator: food_orders
+#     denominator: order_total
+# ---
+# #Ratio type metric. 
+# metric:
+#   name: "new_customer_order_pct"
+#   description: "The food cost as the % of the total order"
+#   type: ratio
+#   type_params: 
+#     numerator:
+#       name: customers
+#       filter: | #entity_path is the entity the dimension belongs to.
+#         {{dimension('customer_type', entity_path=['customer'])}} = 'new'
+#       alias: customer_numerator
+#     denominator: customers
+# ---
+# #Derived Metric. 
+# metric:
+#   name: "order_gross_profit"
+#   description: "The number of orders places"
+#   type: derived
+#   type_params:
+#     expr: revenue - cost
+#     metrics:
+#       - name: food_order_amount
+#         alias: revenue
+#       - name: order_amount
+#         alias: cost
+# ---
+# #Derived Metric. 
+# metric:
+#   name: "food_order_pct_cumulative"
+#   description: "Contrived example to show a ratio metric refrenced in a derviced metric"
+#   type: derived
+#   type_params:
+#     expr: food_order_pct * 100
+#     metrics:
+#       - name: "food_order_pct"
+# ---
+# #Derived Metric. 
+# metric:
+#   name: "cumlative_growth_mom"
+#   description: "Contrived example to show a ratio metric refrenced in a derviced metric"
+#   type: derived
+#   type_params:
+#     expr: cumulative_order_amount/cumulative_order_amount_lm
+#     metrics:
+#       - name: "cumulative_order_amount"
+#       - name: "cumulative_order_amount"
+#         offset_window: 1 month
+#         alias: cumulative_order_amount_lm
+# ---
+# metric:
+#   name: "food_order_gross_profit"
+#   description: "The gross profit for each order"
+#   type: derived
+#   type_params:
+#     expr: revenue - cost
+#     metrics:
+#       - name: order_total
+#         alias: revenue
+#         filter: |
+#           {{dimension('is_food_order')}} = True
+#       - name: order_amount
+#         alias: cost
+#         filter: |
+#           {{dimension('is_food_order')}} = True
+# ---
+# #This is cumalitve type metric, the type_params are measures, window, and grain to date.
+# metric:
+#   name: "cumulative_order_amount"
+#   description: "The cumulative value of all orders"
+#   type: cumulative
+#   type_params:
+#     measures:
+#       - order_total
+# ---
+# metric:
+#   name: "cumulative_order_ammount_l1m"
+#   description: "The cumulative value of all orders"
+#   type: cumulative
+#   type_params:
+#     measures:
+#       - order_total
+#     window: 1 month
+# ---
+# metric:
+#   name: "cumulative_order_amount_mtd"
+#   description: "The cumulative value of all orders"
+#   type: cumulative
+#   type_params:
+#     measures:
+#       - order_total
+#     grain_to_date: month
+# ---
+# metric:
+#   name: "order_count"
+#   description: "The number of orders places"
+#   type: simple
+#   type_params:
+#     measures:
+#       - orders
+# ---
+# metric:
+#   name: "max_order_amount"
+#   description: "The highest order value for a given period"
+#   type: simple
+#   type_params:
+#     measures:
+#       - max_order_value
+# ---
+# metric:
+#   name: "min_order_amount"
+#   description: "The lowest order value for a given period"
+#   type: simple
+#   type_params:
+#     measures:
+#       - min_order_value
+# ---
+# metric:
+#   name: "customers_with_orders"
+#   description: "Unique count of customers placing orders"
+#   type: simple
+#   type_params:
+#     measures:
+#       - customers
+# ---
+# metric:
+#   name: "returning_customers_with_orders"
+#   description: "Unique count of customers placing orders"
+#   type: simple
+#   type_params:
+#     measures:
+#       - customers
+#   filter: |
+#     {{ dimension('customer_type', entity_path=['customer']) }} = 'returning'
+# ---
+# metric:
+#   name: "new_customer_with_orders"
+#   description: "Unique count of customers placing orders"
+#   type: simple
+#   type_params:
+#     measures:
+#       - customers
+#   filter: |
+#     {{ dimension('customer_type', entity_path=['customer']) }} = 'new'
+# ---
+# metric:
+#   name: "average_order_amount"
+#   description: "The average order value"
+#   type: simple
+#   type_params:
+#     measures:
+#       - average_order_value
+# ---
+# metric:
+#   name: "order_amount"
+#   description: The cost of fulfilling each order
+#   type: simple
+#   type_params:
+#     measures:
+#       - order_cost
