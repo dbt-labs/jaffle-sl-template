@@ -7,7 +7,7 @@ metrics:
       measures:
         - orders
     filter: |
-      \{\{dimension('location_name')\}\} in ('Philadelphia')"
+      dimension('location_name') in ('Philadelphia')"
 #This is a measure proxy type . You can define the  as a seperate yaml document, like we've done below, or add the create_: True flag to the measure as a handy shorcut. 
   - name: "large_order"
     description: "Sum of orders from the east coast."
@@ -17,7 +17,7 @@ metrics:
       measures:
         - orders
     filter: |
-      \{\{dimension('order_total_dim')\}\} >= 20
+      dimension('order_total_dim')" >= 20
   - name: "food_order_amount"
     description: "Sum order amoung for food orders."
     label: "test"
@@ -41,7 +41,7 @@ metrics:
       numerator:
         name: customers
         filter: | #entity_path is the entity the dimension belongs to.
-          \{\{dimension('customer_type', entity_path=['customer'])\}\} = 'new'
+          dimension('customer_type', entity_path=['customer'])" = 'new'
         alias: customer_numerator
       denominator: customers
 #Derived Metrics      
@@ -85,11 +85,11 @@ metrics:
         - name: order_total
           alias: revenue
           filter: |
-            \{\{dimension('is_food_order')\}\} = True
+            dimension('is_food_order')" = True
         - name: order_amount
           alias: cost
           filter: |
-            \{\{dimension('is_food_order')\}\} = True
+            dimension('is_food_order')" = True
   - name: "cumulative_order_amount"
     label: "test"    
     description: "The cumulative value of all orders"
@@ -149,7 +149,7 @@ metrics:
       measures:
         - customers
     filter: |
-      \{\{ dimension('customer_type', entity_path=['customer']) \}\} = 'returning'
+       dimension('customer_type', entity_path=['customer']) " = 'returning'
   - name: "new_customer_with_orders"
     label: "test"    
     description: "Unique count of customers placing orders"
@@ -158,7 +158,7 @@ metrics:
       measures:
         - customers
     filter: |
-      \{\{ dimension('customer_type', entity_path=['customer']) \}\} = 'new'
+       dimension('customer_type', entity_path=['customer']) " = 'new'
   - name: "average_order_amount"
     label: "test"
     description: "The average order value"
