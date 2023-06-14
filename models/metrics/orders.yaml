@@ -29,31 +29,40 @@ semantic_models:
       - name: food_orders
         expr: case when is_food_order then order_total else 0 end
         agg: sum
+        agg_time_dimension: ds
       - name: orders
         expr: "1"
         agg: sum
+        agg_time_dimension: ds
       - name: max_order_value
         expr: order_total
         agg: max
+        agg_time_dimension: ds
       - name: min_order_value
         expr: order_total
         agg: min
+        agg_time_dimension: ds
       - name: customers
         expr: customer_id
         agg: count_distinct
+        agg_time_dimension: ds
       - name: average_order_value
         expr: order_total
         agg: average
+        agg_time_dimension: ds
       - name: order_cost
         agg: sum
+        agg_time_dimension: ds
       - name: locations_with_orders
         expr: location_id
         agg: count_distinct
+        agg_time_dimension: ds
         create_metric: true
       - name: median_order_valie
         expr: order_total
         agg: median
         create_metric: true
+        agg_time_dimension: ds
       - name: order_value_p99
         expr: order_total
         agg: percentile
@@ -62,6 +71,7 @@ semantic_models:
           use_discrete_percentile: True
           use_approximate_percentile: False
         create_metric: true
+        agg_time_dimension: ds
       - name: discrete_order_value_p99
         expr: order_total
         agg: percentile
@@ -70,7 +80,7 @@ semantic_models:
           use_discrete_percentile: True
           use_approximate_percentile: False
         create_metric: true
-
+        agg_time_dimension: ds
   #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
     dimensions:
       - name: location_name
