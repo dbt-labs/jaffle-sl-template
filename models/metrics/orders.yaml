@@ -25,6 +25,7 @@ semantic_models:
       - name: order_total
         agg: sum
         create_metric: True
+        agg_time_dimension: ds
       - name: food_orders
         expr: case when is_food_order then order_total else 0 end
         agg: sum

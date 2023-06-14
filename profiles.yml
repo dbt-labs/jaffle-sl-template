@@ -7,3 +7,27 @@ duckdb:
       schema: "{{ env_var('JAFFLE_TARGET_SCHEMA', 'analytics') }}"
       threads: 4
   target: dev
+snowflake:
+  outputs:
+    dev:
+      account: ska67070
+      client_session_keep_alive: false
+      database: ANALYTICS
+      role: TRANSFORMER
+      schema: dbt_sl_test
+      threads: 8
+      type: snowflake
+      user: DBT_SEMANTIC_LAYER_TEST
+      password: aye3gnh7vtz1CDB*etz
+      warehouse: ANALYTICS
+  target: dev
+bigquery:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: dbt-semantic-layer-partners
+      dataset: dbt_sl_test
+      threads: 1
+      keyfile: /Users/jordanstein/Downloads/dbt-semantic-layer-partners-0d29f1481834.json
