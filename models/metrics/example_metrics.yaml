@@ -45,51 +45,51 @@ metrics:
         alias: customer_numerator
       denominator: customers
 #Derived Metrics      
-  - name: "order_gross_profit"
-    label: "test"    
-    description: "The number of orders places"
-    type: derived
-    type_params:
-      expr: revenue - cost
-      metrics:
-        - name: food_order_amount
-          alias: revenue
-        - name: order_amount
-          alias: cost
-  - name: "food_order_pct_cumulative"
-    label: "test"    
-    description: "Contrived example to show a ratio  refrenced in a derviced "
-    type: derived
-    type_params:
-      expr: food_order_pct * 100
-      metrics:
-        - name: "food_order_pct"
-  - name: "cumlative_growth_mom"
-    description: "Contrived example to show a ratio  refrenced in a derviced "
-    label: "test"    
-    type: derived
-    type_params:
-      expr: cumulative_order_amount/cumulative_order_amount_lm
-      metrics:
-        - name: "cumulative_order_amount"
-        - name: "cumulative_order_amount"
-          offset_window: 1 month
-          alias: cumulative_order_amount_lm
-  - name: "food_order_gross_profit"
-    label: "test"    
-    description: "The gross profit for each order"
-    type: derived
-    type_params:
-      expr: revenue - cost
-      metrics:
-        - name: order_total
-          alias: revenue
-          filter: |
-            dimension('is_food_order')" = True
-        - name: order_amount
-          alias: cost
-          filter: |
-            dimension('is_food_order')" = True
+  # - name: "order_gross_profit"  
+  #   description: "Gross profit from each order."
+  #   type: derived
+  #   label: "test"
+  #   type_params:
+  #     expr: revenue - cost
+  #     metrics:
+  #       - name: food_order_amount
+  #         alias: revenue
+  #       - name: order_amount
+  #         alias: cost
+  # - name: "food_order_pct_cumulative"
+  #   label: "test"    
+  #   description: "Contrived example to show a ratio  refrenced in a derviced "
+  #   type: derived
+  #   type_params:
+  #     expr: food_order_pct * 100
+  #     metrics:
+  #       - name: "food_order_pct"
+  # - name: "cumlative_growth_mom"
+  #   description: "Contrived example to show a ratio  refrenced in a derviced "
+  #   label: "test"    
+  #   type: derived
+  #   type_params:
+  #     expr: cumulative_order_amount/cumulative_order_amount_lm
+  #     metrics:
+  #       - name: "cumulative_order_amount"
+  #       - name: "cumulative_order_amount"
+  #         offset_window: 1 month
+  #         alias: cumulative_order_amount_lm
+  # - name: "food_order_gross_profit"
+  #   label: "test"    
+  #   description: "The gross profit for each order"
+  #   type: derived
+  #   type_params:
+  #     expr: revenue - cost
+  #     metrics:
+  #       - name: order_total
+  #         alias: revenue
+  #         filter: |
+  #           dimension('is_food_order')" = True
+  #       - name: order_amount
+  #         alias: cost
+  #         filter: |
+  #           dimension('is_food_order')" = True
   - name: "cumulative_order_amount"
     label: "test"    
     description: "The cumulative value of all orders"
