@@ -10,7 +10,7 @@ metrics:
       location_name in ('Philadelphia')
 #SIMPLE TYPE METRICS
   - name: "large_order"
-    description: "Sum of orders from the east coast."
+    description: "Order with order values over 20."
     type: SIMPLE
     label: "test"
     type_params:
@@ -19,7 +19,7 @@ metrics:
     filter: |
       order_total_dim >= 20
   - name: "jumbo_order"
-    description: "Sum of orders from the east coast."
+    description: "Orders with order value over 50."
     type: SIMPLE
     label: "test"
     type_params:
