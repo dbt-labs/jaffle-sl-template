@@ -8,7 +8,7 @@ metrics:
         - orders
     filter: |
       location_name in ('Philadelphia')
-#This is a measure proxy type . You can define the  as a seperate yaml document, like we've done below, or add the create_: True flag to the measure as a handy shorcut. 
+#SIMPLE TYPE METRICS
   - name: "large_order"
     description: "Sum of orders from the east coast."
     type: SIMPLE
@@ -18,6 +18,15 @@ metrics:
         - orders
     filter: |
       order_total_dim >= 20
+  - name: "jumbo_order"
+    description: "Sum of orders from the east coast."
+    type: SIMPLE
+    label: "test"
+    type_params:
+      measures:
+        - orders
+    filter: |
+      order_total_dim >= 50
   - name: "food_order_amount"
     description: "Sum order amoung for food orders."
     label: "test"
