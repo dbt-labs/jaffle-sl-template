@@ -1,6 +1,0 @@
-.evidence/template
-.svelte-kit
-build
-node_modules
-.DS_Store
-*.*duckdb

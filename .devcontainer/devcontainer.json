@@ -3,7 +3,6 @@
   "image": "mcr.microsoft.com/devcontainers/python:0-3.10-bullseye",
   "features": {
     "ghcr.io/devcontainers-contrib/features/black:1": {},
-    "ghcr.io/devcontainers-contrib/features/meltano": {},
     "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/eitsupi/devcontainer-features/duckdb-cli:1": {},
     "ghcr.io/eitsupi/devcontainer-features/go-task:1": {}

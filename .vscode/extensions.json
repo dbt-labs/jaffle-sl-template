@@ -12,8 +12,6 @@
     "bungcip.better-toml",
     "tamasfe.even-better-toml",
     "mechatroner.rainbow-csv",
-    "evidence.evidence-vscode",
-    "svelte.svelte-vscode",
     "bastienboutonnet.vscode-dbt"
   ]
 }
