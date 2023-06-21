@@ -18,7 +18,7 @@ metrics:
         - orders
     filter: |
       order_total_dim >= 20
-  - name: "jumbo"
+  - name: "jumbo_order"
     description: "Order with order values over 50."
     type: SIMPLE
     label: "test"
@@ -26,7 +26,7 @@ metrics:
       measures:
         - orders
     filter: |
-      order_total_dim >= 50
+      order_total_dim >= 70
   - name: "food_order_amount"
     description: "Sum order amoung for food orders."
     label: "test"
