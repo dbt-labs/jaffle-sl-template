@@ -4,8 +4,7 @@ metrics:
     type: simple
     label: "test"
     type_params:
-      measures:
-        - orders
+      measure: orders
     filter: |
       location_name in ('Philadelphia')
 #SIMPLE TYPE METRICS
@@ -14,8 +13,7 @@ metrics:
     type: SIMPLE
     label: "test"
     type_params:
-      measures:
-        - orders
+      measure: orders
     filter: |
       order_total_dim >= 20
   - name: "jumbo_order"
@@ -23,8 +21,7 @@ metrics:
     type: SIMPLE
     label: "test"
     type_params:
-      measures:
-        - orders
+      measure: orders
     filter: |
       order_total_dim >= 70
   - name: "food_order_amount"
@@ -32,8 +29,7 @@ metrics:
     label: "test"
     type: simple
     type_params:
-      measures:
-        - food_orders
+      measure: food_orders
   - name: "food_order_pct"
     description: "The food cost as the % of the total order"
     label: "test"    
@@ -104,59 +100,51 @@ metrics:
     description: "The cumulative value of all orders"
     type: cumulative
     type_params:
-      measures:
-        - order_total
+      measure: order_total
   - name: "cumulative_order_ammount_l1m"
     label: "test"    
     description: "The cumulative value of all orders"
     type: cumulative
     type_params:
-      measures:
-        - order_total
+      measure: order_total
       window: 1 month
   - name: "cumulative_order_amount_mtd"
     label: "test"    
     description: "The cumulative value of all orders"
     type: cumulative
     type_params:
-      measures:
-        - order_total
+      measure: order_total
       grain_to_date: month
   - name: "order_count"
     label: "test"    
     description: "The number of orders places"
     type: simple
     type_params:
-      measures:
-        - orders
+      measure: orders
   - name: "max_order_amount"
     label: "test"    
     description: "The highest order value for a given period"
     type: simple
     type_params:
-      measures:
-        - max_order_value
+      measure: max_order_value
   - name: "min_order_amount"
     label: "test"    
     description: "The lowest order value for a given period"
     type: simple
     type_params:
-      measures:
-        - min_order_value
+      measure: min_order_value
   - name: "customers_with_orders"
     label: "test"
     description: "Unique count of customers placing orders"
     type: simple
     type_params:
-      measures:
-        - customers
+      measure: customers
   - name: "returning_customers_with_orders"
     label: "test"    
     description: "Unique count of customers placing orders"
     type: simple
     type_params:
-      measures:
-        - customers
+      measure: customers
     filter: |
        customer__customer_type = 'returning'
   - name: "new_customer_with_orders"
@@ -164,8 +152,7 @@ metrics:
     description: "Unique count of customers placing orders"
     type: simple
     type_params:
-      measures:
-        - customers
+      measure: customers
     filter: |
        customer__customer_type  = 'new'
   - name: "average_order_amount"
@@ -173,12 +160,10 @@ metrics:
     description: "The average order value"
     type: simple
     type_params:
-      measures:
-        - average_order_value
+      measure: average_order_value
   - name: "order_amount"
     label: "test"    
     description: The cost of fulfilling each order
     type: simple
     type_params:
-      measures:
-        - order_cost
+      measure: order_cost
