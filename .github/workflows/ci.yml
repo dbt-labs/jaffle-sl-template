@@ -35,6 +35,7 @@ jobs:
           echo "     role: $SNOWFLAKE_ROLE" >> ~/.dbt/profiles.yml
           echo "     database: $SNOWFLAKE_DATABASE" >> ~/.dbt/profiles.yml
           echo "     warehouse: $SNOWFLAKE_WAREHOUSE" >> ~/.dbt/profiles.yml
+          echo "     schema: dbt_metrics_ci >> ~/.dbt/profiles.yml
       - name: Install dbt Dependencies
         run: dbt deps
       - name: dbt Build
