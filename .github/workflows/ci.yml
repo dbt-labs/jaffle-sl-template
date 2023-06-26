@@ -24,7 +24,7 @@ jobs:
           SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
         run: |
           mkdir -p ~/.dbt/
-          echo "[profile:snowflake]" >> ~/.dbt/profiles.yml
+          echo "profile: snowflake" >> ~/.dbt/profiles.yml
           echo "target: dev" >> ~/.dbt/profiles.yml
           echo "outputs:" >> ~/.dbt/profiles.yml
           echo "  dev:" >> ~/.dbt/profiles.yml
