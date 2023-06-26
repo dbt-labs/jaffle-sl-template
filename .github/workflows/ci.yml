@@ -24,17 +24,17 @@ jobs:
           SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
         run: |
           mkdir -p ~/.dbt/
-          echo "profile: snowflake" >> ~/.dbt/profiles.yml
-          echo "target: dev" >> ~/.dbt/profiles.yml
-          echo "outputs:" >> ~/.dbt/profiles.yml
-          echo "  dev:" >> ~/.dbt/profiles.yml
-          echo "    type: snowflake" >> ~/.dbt/profiles.yml
-          echo "    account: $SNOWFLAKE_ACCOUNT" >> ~/.dbt/profiles.yml
-          echo "    user: $SNOWFLAKE_USER" >> ~/.dbt/profiles.yml
-          echo "    password: $SNOWFLAKE_PASSWORD" >> ~/.dbt/profiles.yml
-          echo "    role: $SNOWFLAKE_ROLE" >> ~/.dbt/profiles.yml
-          echo "    database: $SNOWFLAKE_DATABASE" >> ~/.dbt/profiles.yml
-          echo "    warehouse: $SNOWFLAKE_WAREHOUSE" >> ~/.dbt/profiles.yml
+          echo "snowflake:" >> ~/.dbt/profiles.yml
+          echo " target: dev" >> ~/.dbt/profiles.yml
+          echo " outputs:" >> ~/.dbt/profiles.yml
+          echo "   dev:" >> ~/.dbt/profiles.yml
+          echo "     type: snowflake" >> ~/.dbt/profiles.yml
+          echo "     account: $SNOWFLAKE_ACCOUNT" >> ~/.dbt/profiles.yml
+          echo "     user: $SNOWFLAKE_USER" >> ~/.dbt/profiles.yml
+          echo "     password: $SNOWFLAKE_PASSWORD" >> ~/.dbt/profiles.yml
+          echo "     role: $SNOWFLAKE_ROLE" >> ~/.dbt/profiles.yml
+          echo "     database: $SNOWFLAKE_DATABASE" >> ~/.dbt/profiles.yml
+          echo "     warehouse: $SNOWFLAKE_WAREHOUSE" >> ~/.dbt/profiles.yml
       - name: Install dbt Dependencies
         run: dbt deps
       - name: dbt Build
