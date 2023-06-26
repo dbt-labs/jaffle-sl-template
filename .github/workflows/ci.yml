@@ -14,9 +14,28 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -r requirements.txt
-          pipx install meltano && meltano install
-      - name: Run Extract and Load
-        run: meltano run tap-jaffle-shop target-duckdb
+      - name: Set up Snowflake profile
+        env:
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+        run: |
+          mkdir -p ~/.dbt/
+          echo "snowflake:" >> ~/.dbt/profiles.yml
+          echo " target: dev" >> ~/.dbt/profiles.yml
+          echo " outputs:" >> ~/.dbt/profiles.yml
+          echo "   dev:" >> ~/.dbt/profiles.yml
+          echo "     type: snowflake" >> ~/.dbt/profiles.yml
+          echo "     account: $SNOWFLAKE_ACCOUNT" >> ~/.dbt/profiles.yml
+          echo "     user: $SNOWFLAKE_USER" >> ~/.dbt/profiles.yml
+          echo "     password: $SNOWFLAKE_PASSWORD" >> ~/.dbt/profiles.yml
+          echo "     role: $SNOWFLAKE_ROLE" >> ~/.dbt/profiles.yml
+          echo "     database: $SNOWFLAKE_DATABASE" >> ~/.dbt/profiles.yml
+          echo "     warehouse: $SNOWFLAKE_WAREHOUSE" >> ~/.dbt/profiles.yml
+          echo "     schema: dbt_metrics_ci" >> ~/.dbt/profiles.yml
       - name: Install dbt Dependencies
         run: dbt deps
       - name: dbt Build
