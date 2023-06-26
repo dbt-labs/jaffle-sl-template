@@ -7,6 +7,18 @@ metrics:
       measure: orders
     filter: |
       location_name in ('Philadelphia')
+  - name: "order_total"
+    description: "Sum of orders value"
+    type: simple
+    label: "test"
+    type_params:
+      measure: order_total
+  - name: "customers"
+    description: "Count of customers"
+    type: simple
+    label: "test"
+    type_params:
+      measure: customers
 #SIMPLE TYPE METRICS
   - name: "large_order"
     description: "Order with order values over 20."
@@ -30,12 +42,13 @@ metrics:
     type: simple
     type_params:
       measure: food_orders
+
   - name: "food_order_pct"
     description: "The food cost as the % of the total order"
     label: "test"    
     type: ratio
     type_params: 
-      numerator: food_orders
+      numerator: food_order_amount
       denominator: order_total
 #Ratio type metric
   - name: "new_customer_order_pct"
