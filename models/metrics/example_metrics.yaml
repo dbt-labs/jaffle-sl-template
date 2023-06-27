@@ -6,7 +6,7 @@ metrics:
     type_params:
       measure: orders
     filter: |
-      location_name in ('Philadelphia')
+      {{dimension('location_name')}} in ('Philadelphia')
   - name: "order_total"
     description: "Sum of orders value"
     type: simple
@@ -27,7 +27,7 @@ metrics:
     type_params:
       measure: orders
     filter: |
-      order_total_dim >= 20
+      {{dimension('order_total_dim')}} >= 20
   - name: "jumbo_order"
     description: "Order with order values over 50."
     type: SIMPLE
@@ -35,7 +35,7 @@ metrics:
     type_params:
       measure: orders
     filter: |
-      order_total_dim >= 70
+      {{dimension('order_total_dim')}} >= 70
   - name: "food_order_amount"
     description: "Sum order amoung for food orders."
     label: "test"
@@ -59,7 +59,7 @@ metrics:
       numerator:
         name: customers
         filter: | #entity_path is the entity the dimension belongs to.
-          customer__customer_type = 'new'
+          {{dimension('customer_type', entity_path=['customer'])}} = 'new'
         alias: customer_numerator
       denominator: customers
 #Derived Metrics      
@@ -159,7 +159,7 @@ metrics:
     type_params:
       measure: customers
     filter: |
-       customer__customer_type = 'returning'
+       {{dimension('customer_type', entity_path=['customer'])}} = 'returning'
   - name: "new_customer_with_orders"
     label: "test"    
     description: "Unique count of customers placing orders"
@@ -167,7 +167,7 @@ metrics:
     type_params:
       measure: customers
     filter: |
-       customer__customer_type  = 'new'
+      {{dimension('customer_type', entity_path=['customer'])}}  = 'new'
   - name: "average_order_amount"
     label: "test"
     description: "The average order value"
