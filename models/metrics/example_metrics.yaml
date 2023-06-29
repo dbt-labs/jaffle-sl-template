@@ -1,12 +1,12 @@
 metrics:
-  - name: "east_coast_order_amount"
-    description: "Sum of orders from the east coast."
-    type: simple
-    label: "test"
-    type_params:
-      measure: orders
-    filter: |
-      {{dimension('location_name')}} in ('Philadelphia')
+  # - name: "east_coast_order_amount"
+  #   description: "Sum of orders from the east coast."
+  #   type: simple
+  #   label: "test"
+  #   type_params:
+  #     measure: orders
+  #   filter: |
+  #     {{dimension('location_name')}} in ('Philadelphia')
   - name: "order_total"
     description: "Sum of orders value"
     type: simple
@@ -20,22 +20,22 @@ metrics:
     type_params:
       measure: customers
 #SIMPLE TYPE METRICS
-  - name: "large_order"
-    description: "Order with order values over 20."
-    type: SIMPLE
-    label: "test"
-    type_params:
-      measure: orders
-    filter: |
-      {{dimension('order_total_dim')}} >= 20
-  - name: "jumbo_order"
-    description: "Order with order values over 50."
-    type: SIMPLE
-    label: "test"
-    type_params:
-      measure: orders
-    filter: |
-      {{dimension('order_total_dim')}} >= 70
+  # - name: "large_order"
+  #   description: "Order with order values over 20."
+  #   type: SIMPLE
+  #   label: "test"
+  #   type_params:
+  #     measure: orders
+  #   filter: |
+  #     {{dimension('order_total_dim')}} >= 20
+  # - name: "jumbo_order"
+  #   description: "Order with order values over 50."
+  #   type: SIMPLE
+  #   label: "test"
+  #   type_params:
+  #     measure: orders
+  #   filter: |
+  #     {{dimension('order_total_dim')}} >= 70
   - name: "food_order_amount"
     description: "Sum order amoung for food orders."
     label: "test"
@@ -51,17 +51,17 @@ metrics:
       numerator: food_order_amount
       denominator: order_total
 #Ratio type metric
-  - name: "new_customer_order_pct"
-    description: "The food cost as the % of the total order"
-    label: "test"    
-    type: ratio
-    type_params: 
-      numerator:
-        name: customers
-        filter: | #entity_path is the entity the dimension belongs to.
-          {{dimension('customer_type', entity_path=['customer'])}} = 'new'
-        alias: customer_numerator
-      denominator: customers
+  # - name: "new_customer_order_pct"
+  #   description: "The food cost as the % of the total order"
+  #   label: "test"    
+  #   type: ratio
+  #   type_params: 
+  #     numerator:
+  #       name: customers
+  #       filter: | #entity_path is the entity the dimension belongs to.
+  #         {{dimension('customer_type', entity_path=['customer'])}} = 'new'
+  #       alias: customer_numerator
+  #     denominator: customers
 #Derived Metrics      
   # - name: "order_gross_profit"  
   #   description: "Gross profit from each order."
@@ -152,22 +152,22 @@ metrics:
     type: simple
     type_params:
       measure: customers
-  - name: "returning_customers_with_orders"
-    label: "test"    
-    description: "Unique count of customers placing orders"
-    type: simple
-    type_params:
-      measure: customers
-    filter: |
-       {{dimension('customer_type', entity_path=['customer'])}} = 'returning'
-  - name: "new_customer_with_orders"
-    label: "test"    
-    description: "Unique count of customers placing orders"
-    type: simple
-    type_params:
-      measure: customers
-    filter: |
-      {{dimension('customer_type', entity_path=['customer'])}}  = 'new'
+  # - name: "returning_customers_with_orders"
+  #   label: "test"    
+  #   description: "Unique count of customers placing orders"
+  #   type: simple
+  #   type_params:
+  #     measure: customers
+  #   filter: |
+  #      {{dimension('customer_type', entity_path=['customer'])}} = 'returning'
+  # - name: "new_customer_with_orders"
+  #   label: "test"    
+  #   description: "Unique count of customers placing orders"
+  #   type: simple
+  #   type_params:
+  #     measure: customers
+  #   filter: |
+  #     {{dimension('customer_type', entity_path=['customer'])}}  = 'new'
   - name: "average_order_amount"
     label: "test"
     description: "The average order value"
