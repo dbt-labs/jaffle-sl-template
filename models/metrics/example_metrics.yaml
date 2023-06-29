@@ -1,12 +1,12 @@
 metrics:
-  # - name: "east_coast_order_amount"
-  #   description: "Sum of orders from the east coast."
-  #   type: simple
-  #   label: "test"
-  #   type_params:
-  #     measure: orders
-  #   filter: |
-  #     {{dimension('location_name')}} in ('Philadelphia')
+  - name: "east_coast_order_amount"
+    description: "Sum of orders from the east coast."
+    type: simple
+    label: "test"
+    type_params:
+      measure: orders
+    filter: |
+      {{dimension('location_name')}} in ('Philadelphia')
   - name: "order_total"
     description: "Sum of orders value"
     type: simple
