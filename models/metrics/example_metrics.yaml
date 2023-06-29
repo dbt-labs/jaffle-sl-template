@@ -19,6 +19,30 @@ metrics:
     label: "test"
     type_params:
       measure: customers
+  - name: "locations_with_orders"
+    description: "Count of customers"
+    type: simple
+    label: "test"
+    type_params:
+      measure: locations_with_orders
+  - name: "median_order_value"
+    description: "Count of customers"
+    type: simple
+    label: "test"
+    type_params:
+      measure: median_order_valie
+  - name: "order_value_p99"
+    description: "Count of customers"
+    type: simple
+    label: "test"
+    type_params:
+      measure: order_value_p99
+  - name: "discrete_order_value_p99"
+    description: "Count of customers"
+    type: simple
+    label: "test"
+    type_params:
+      measure: order_value_p99
 #SIMPLE TYPE METRICS
   # - name: "large_order"
   #   description: "Order with order values over 20."
