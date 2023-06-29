@@ -97,3 +97,6 @@ semantic_models:
       - name: order_total_dim
         type: categorical
         expr: order_total
+      - name: is_large_order
+        type: categorical
+        expr: case when order_total > 50 then true else false end
