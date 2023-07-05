@@ -1,0 +1,25 @@
+semantic_models:
+  - name: locations
+    description: |
+      Model containting locations. The grain of the table is the location id.
+    model: ref('locations')
+    defaults:
+      agg_time_dimension: opened_date
+
+    entities:
+      - name: location
+        type: primary
+        expr: location_id
+
+    dimensions:
+      - name: location_name
+        type: categorical
+      - name: opened_date
+        type: time
+        expr: date_trunc('day', opened_at)
+        type_params:
+          time_granuality: day
+
+    measures:
+      - name: tax_rate
+        expr: tax_rate

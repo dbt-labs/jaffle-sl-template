@@ -1,14 +1,11 @@
 semantic_models:
-  #The name of the semantic model.
   - name: orders
     description: |
       Model containting order data. The grain of the table is the order id.
-    
-    #The name of the dbt model and schema
     model: ref('orders')
     defaults:
       agg_time_dimension: ds
-    #Entities. These usually corespond to keys in the table.
+
     entities:
       - name: order
         type: primary
@@ -20,7 +17,25 @@ semantic_models:
         type: foreign
         expr: customer_id
 
-    #Measures. These are the aggregations on the columns in the table.
+    dimensions:
+      - name: location_name
+        type: categorical
+      - name: ds
+        expr: ordered_at
+        type: time
+        type_params:
+          time_granularity: day
+      - name: is_food_order
+        type: categorical
+      - name: is_drink_order
+        type: categorical
+      - name: order_total_dim
+        type: categorical
+        expr: order_total
+      - name: is_large_order
+        type: categorical
+        expr: case when order_total > 50 then true else false end
+
     measures:
       - name: order_total
         agg: sum
@@ -56,7 +71,7 @@ semantic_models:
         expr: location_id
         agg: count_distinct
         agg_time_dimension: ds
-      - name: median_order_valie
+      - name: median_order_value
         expr: order_total
         agg: median
         agg_time_dimension: ds
@@ -76,22 +91,3 @@ semantic_models:
           use_discrete_percentile: True
           use_approximate_percentile: False
         agg_time_dimension: ds
-  #Dimensions,either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
-    dimensions:
-      - name: location_name
-        type: categorical
-      - name: ds
-        expr: ordered_at
-        type: time
-        type_params:
-          time_granularity: day
-      - name: is_food_order
-        type: categorical
-      - name: is_drink_order
-        type: categorical
-      - name: order_total_dim
-        type: categorical
-        expr: order_total
-      - name: is_large_order
-        type: categorical
-        expr: case when order_total > 50 then true else false end

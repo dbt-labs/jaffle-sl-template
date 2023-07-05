@@ -30,7 +30,7 @@ metrics:
     type: simple
     label: "test"
     type_params:
-      measure: median_order_valie
+      measure: median_order_value
   - name: "order_value_p99"
     description: "Count of customers"
     type: simple
@@ -43,7 +43,7 @@ metrics:
     label: "test"
     type_params:
       measure: order_value_p99
-#SIMPLE TYPE METRICS
+  #SIMPLE TYPE METRICS
   # - name: "large_order"
   #   description: "Order with order values over 20."
   #   type: SIMPLE
@@ -69,25 +69,25 @@ metrics:
 
   - name: "food_order_pct"
     description: "The food cost as the % of the total order"
-    label: "test"    
+    label: "test"
     type: ratio
-    type_params: 
+    type_params:
       numerator: food_order_amount
       denominator: order_total
-#Ratio type metric
+  #Ratio type metric
   # - name: "new_customer_order_pct"
   #   description: "The food cost as the % of the total order"
-  #   label: "test"    
+  #   label: "test"
   #   type: ratio
-  #   type_params: 
+  #   type_params:
   #     numerator:
   #       name: customers
   #       filter: | #entity_path is the entity the dimension belongs to.
   #         {{dimension('customer_type', entity_path=['customer'])}} = 'new'
   #       alias: customer_numerator
   #     denominator: customers
-#Derived Metrics      
-  # - name: "order_gross_profit"  
+  #Derived Metrics
+  # - name: "order_gross_profit"
   #   description: "Gross profit from each order."
   #   type: derived
   #   label: "test"
@@ -99,7 +99,7 @@ metrics:
   #       - name: order_amount
   #         alias: cost
   # - name: "food_order_pct_cumulative"
-  #   label: "test"    
+  #   label: "test"
   #   description: "Contrived example to show a ratio  refrenced in a derviced "
   #   type: derived
   #   type_params:
@@ -108,7 +108,7 @@ metrics:
   #       - name: "food_order_pct"
   # - name: "cumlative_growth_mom"
   #   description: "Contrived example to show a ratio  refrenced in a derviced "
-  #   label: "test"    
+  #   label: "test"
   #   type: derived
   #   type_params:
   #     expr: cumulative_order_amount/cumulative_order_amount_lm
@@ -118,7 +118,7 @@ metrics:
   #         offset_window: 1 month
   #         alias: cumulative_order_amount_lm
   # - name: "food_order_gross_profit"
-  #   label: "test"    
+  #   label: "test"
   #   description: "The gross profit for each order"
   #   type: derived
   #   type_params:
@@ -133,39 +133,39 @@ metrics:
   #         filter: |
   #           dimension('is_food_order')" = True
   - name: "cumulative_order_amount"
-    label: "test"    
+    label: "test"
     description: "The cumulative value of all orders"
     type: cumulative
     type_params:
       measure: order_total
   - name: "cumulative_order_ammount_l1m"
-    label: "test"    
+    label: "test"
     description: "The cumulative value of all orders"
     type: cumulative
     type_params:
       measure: order_total
       window: 1 month
   - name: "cumulative_order_amount_mtd"
-    label: "test"    
+    label: "test"
     description: "The cumulative value of all orders"
     type: cumulative
     type_params:
       measure: order_total
       grain_to_date: month
   - name: "order_count"
-    label: "test"    
+    label: "test"
     description: "The number of orders places"
     type: simple
     type_params:
       measure: orders
   - name: "max_order_amount"
-    label: "test"    
+    label: "test"
     description: "The highest order value for a given period"
     type: simple
     type_params:
       measure: max_order_value
   - name: "min_order_amount"
-    label: "test"    
+    label: "test"
     description: "The lowest order value for a given period"
     type: simple
     type_params:
@@ -177,7 +177,7 @@ metrics:
     type_params:
       measure: customers
   # - name: "returning_customers_with_orders"
-  #   label: "test"    
+  #   label: "test"
   #   description: "Unique count of customers placing orders"
   #   type: simple
   #   type_params:
@@ -185,7 +185,7 @@ metrics:
   #   filter: |
   #      {{dimension('customer_type', entity_path=['customer'])}} = 'returning'
   # - name: "new_customer_with_orders"
-  #   label: "test"    
+  #   label: "test"
   #   description: "Unique count of customers placing orders"
   #   type: simple
   #   type_params:
@@ -199,7 +199,7 @@ metrics:
     type_params:
       measure: average_order_value
   - name: "order_amount"
-    label: "test"    
+    label: "test"
     description: The cost of fulfilling each order
     type: simple
     type_params:

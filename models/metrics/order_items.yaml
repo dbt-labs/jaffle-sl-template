@@ -1,0 +1,20 @@
+semantic_models:
+  - name: order_items
+    description: |
+      Model containting order items. The grain of the table is the order item id.
+    model: ref('order_items')
+    entities:
+      - name: order_item
+        type: primary
+        expr: order_item_id
+      - name: order
+        type: foreign
+        expr: order_id
+      - name: product
+        type: foreign
+        expr: product_id
+
+    dimensions:
+      - name: product_id_dim
+        type: categorical
+        expr: product_id
