@@ -1,4 +1,3 @@
----
 semantic_models:
   #The name of the semantic model.
   - name: customers
@@ -6,16 +5,11 @@ semantic_models:
       agg_time_dimension: first_ordered_at
     description: |
       Customer dimension table. The grain of the table is one row per customer.
-
-    #The name of the dbt model and schema
     model: ref('customers')
-    #Entities. These usually corespond to keys in the table.
     entities:
       - name: customer
         type: primary
         expr: customer_id
-
-  #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
     dimensions:
       - name: customer_name
         type: categorical
@@ -28,10 +22,10 @@ semantic_models:
       - name: customer_type
         type: categorical
       - name: first_ordered_at
-        type: time 
+        type: time
         type_params:
           time_granularity: day
       - name: last_ordered_at
-        type: time 
+        type: time
         type_params:
           time_granularity: day

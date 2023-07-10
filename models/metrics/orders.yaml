@@ -40,7 +40,7 @@ semantic_models:
       - name: order_total
         agg: sum
         agg_time_dimension: ds
-      - name: food_orders
+      - name: food_orders_total_amount
         expr: case when is_food_order then order_total else 0 end
         agg: sum
         agg_time_dimension: ds

@@ -1,0 +1,24 @@
+semantic_models:
+  - name: products
+    description: |
+      Model containting product data. The grain of the table is the product id.
+    model: ref('products')
+    entities:
+      - name: product
+        type: primary
+        expr: product_id
+
+    dimensions:
+      - name: product_type
+        type: categorical
+        expr: product_type
+      - name: product_name
+        type: categorical
+        expr: product_name
+      - name: product_description
+        type: categorical
+        expr: product_description
+      - name: is_food_item
+        type: categorical
+      - name: is_drink_item
+        type: categorical

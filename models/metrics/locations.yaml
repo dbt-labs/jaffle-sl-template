@@ -18,8 +18,9 @@ semantic_models:
         type: time
         expr: date_trunc('day', opened_at)
         type_params:
-          time_granuality: day
+          time_granularity: day
 
     measures:
-      - name: tax_rate
+      - name: max_tax_rate
         expr: tax_rate
+        agg: max

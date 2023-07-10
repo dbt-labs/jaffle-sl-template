@@ -5,5 +5,24 @@
   "[jinja-sql]": {
     "editor.defaultFormatter": "dorzey.vscode-sqlfluff",
     "editor.formatOnSave": false
+  },
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/dbt_yml_files.json": [
+      "/**/*.yml",
+      "!profiles.yml",
+      "!dbt_project.yml",
+      "!packages.yml",
+      "!selectors.yml",
+      "!profile_template.yml"
+    ],
+    "https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/dbt_project.json": [
+      "dbt_project.yml"
+    ],
+    "https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/selectors.json": [
+      "selectors.yml"
+    ],
+    "https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/packages.json": [
+      "packages.yml"
+    ]
   }
 }
