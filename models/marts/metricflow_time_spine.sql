@@ -1,3 +1,8 @@
+{{
+    config(
+        materialized='table'
+    )
+}}
 
 -- metricflow_time_spine.sql
 with days as (
