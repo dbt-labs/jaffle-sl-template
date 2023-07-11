@@ -76,7 +76,7 @@ semantic_models:
           use_discrete_percentile: True
           use_approximate_percentile: False
         agg_time_dimension: ds
-  #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
+  #Dimensions,either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
     dimensions:
       - name: location_name
         type: categorical
