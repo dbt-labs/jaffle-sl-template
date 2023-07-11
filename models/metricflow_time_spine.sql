@@ -1,1 +1,7 @@
-{{dbt_utils.date_spine('day', "to_date('01/01/2000','mm/dd/yyyy')", "to_date('01/01/2027','mm/dd/yyyy')")}}
+{{
+    dbt_utils.date_spine(
+        "day"
+        , "cast('01/01/2000' as date)"
+        , "cast('01/01/2027' as date)"
+      )
+}}
