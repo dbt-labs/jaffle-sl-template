@@ -2,7 +2,7 @@ metrics:
   - name: "east_coast_order_amount"
     description: "Sum of orders from the east coast."
     type: simple
-    label: "test"
+    label: "east_coast_order_amount"
     type_params:
       measure: orders
     filter: |
@@ -10,37 +10,37 @@ metrics:
   - name: "order_total"
     description: "Sum of orders value"
     type: simple
-    label: "test"
+    label: "order_total"
     type_params:
       measure: order_total
   - name: "customers"
     description: "Count of customers"
     type: simple
-    label: "test"
+    label: "customers"
     type_params:
       measure: customers
   - name: "locations_with_orders"
     description: "Count of customers"
     type: simple
-    label: "test"
+    label: "locations_with_orders"
     type_params:
       measure: locations_with_orders
   - name: "median_order_value"
     description: "Count of customers"
     type: simple
-    label: "test"
+    label: "median_order_value"
     type_params:
       measure: median_order_valie
   - name: "order_value_p99"
     description: "Count of customers"
     type: simple
-    label: "test"
+    label: "order_value_p99"
     type_params:
       measure: order_value_p99
   - name: "discrete_order_value_p99"
     description: "Count of customers"
     type: simple
-    label: "test"
+    label: "discrete_order_value_p99"
     type_params:
       measure: order_value_p99
 #SIMPLE TYPE METRICS
@@ -62,14 +62,14 @@ metrics:
   #     {{dimension('order_total_dim')}} >= 70
   - name: "food_order_amount"
     description: "Sum order amoung for food orders."
-    label: "test"
+    label: "food_order_amount"
     type: simple
     type_params:
       measure: food_orders
 
   - name: "food_order_pct"
     description: "The food cost as the % of the total order"
-    label: "test"    
+    label: "food_order_pct"    
     type: ratio
     type_params: 
       numerator: food_order_amount
@@ -133,45 +133,45 @@ metrics:
   #         filter: |
   #           dimension('is_food_order')" = True
   - name: "cumulative_order_amount"
-    label: "test"    
+    label: "cumulative_order_amount"    
     description: "The cumulative value of all orders"
     type: cumulative
     type_params:
       measure: order_total
   - name: "cumulative_order_ammount_l1m"
-    label: "test"    
+    label: "cumulative_order_ammount_l1m"    
     description: "The cumulative value of all orders"
     type: cumulative
     type_params:
       measure: order_total
       window: 1 month
   - name: "cumulative_order_amount_mtd"
-    label: "test"    
+    label: "cumulative_order_amount_mtd"    
     description: "The cumulative value of all orders"
     type: cumulative
     type_params:
       measure: order_total
       grain_to_date: month
   - name: "order_count"
-    label: "test"    
+    label: "order_count"    
     description: "The number of orders places"
     type: simple
     type_params:
       measure: orders
   - name: "max_order_amount"
-    label: "test"    
+    label: "max_order_amount"    
     description: "The highest order value for a given period"
     type: simple
     type_params:
       measure: max_order_value
   - name: "min_order_amount"
-    label: "test"    
+    label: "min_order_amount"    
     description: "The lowest order value for a given period"
     type: simple
     type_params:
       measure: min_order_value
   - name: "customers_with_orders"
-    label: "test"
+    label: "customers_with_orders"
     description: "Unique count of customers placing orders"
     type: simple
     type_params:
@@ -193,13 +193,13 @@ metrics:
   #   filter: |
   #     {{dimension('customer_type', entity_path=['customer'])}}  = 'new'
   - name: "average_order_amount"
-    label: "test"
+    label: "average_order_amount"
     description: "The average order value"
     type: simple
     type_params:
       measure: average_order_value
   - name: "order_amount"
-    label: "test"    
+    label: "order_amount"    
     description: The cost of fulfilling each order
     type: simple
     type_params:
