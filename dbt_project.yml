@@ -18,8 +18,7 @@ vars:
   truncate_timespan_to: "{{ current_timestamp() }}"
 
 models:
-  jaffle_shop:
-    staging:
-      +materialized: view
-    marts:
-      +materialized: table
+  staging:
+    +materialized: view
+  marts:
+    +materialized: table
