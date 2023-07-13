@@ -31,25 +31,25 @@ metrics:
     type_params:
       measure: customers
   - name: "locations_with_orders"
-    description: "Count of customers"
+    description: "The number of locations that have orders."
     type: simple
     label: "locations_with_orders"
     type_params:
       measure: locations_with_orders
   - name: "median_order_value"
-    description: "Count of customers"
+    description: "The median value of each order"
     type: simple
     label: "median_order_value"
     type_params:
       measure: median_order_valie
   - name: "order_value_p99"
-    description: "Count of customers"
+    description: "The 99th percentile of each order"
     type: simple
     label: "order_value_p99"
     type_params:
       measure: order_value_p99
   - name: "discrete_order_value_p99"
-    description: "Count of customers"
+    description: "The 99th percentile of each order using a discrete distribution"
     type: simple
     label: "discrete_order_value_p99"
     type_params:
@@ -64,7 +64,7 @@ metrics:
     filter: |
       {{dimension('order_total_dim')}} >= 20
   - name: "jumbo_order"
-    description: "Order with order values over 50."
+    description: "Order with order values over 70."
     type: SIMPLE
     label: "test"
     type_params:
@@ -86,7 +86,7 @@ metrics:
       denominator: order_total
 #Ratio type metric
   - name: "new_customer_order_pct"
-    description: "The food cost as the % of the total order"
+    description: "The orders from new customers as the % of the total order"
     label: "test"    
     type: ratio
     type_params: 
@@ -110,14 +110,14 @@ metrics:
           alias: cost
   - name: "food_order_pct_cumulative"
     label: "test"    
-    description: "Contrived example to show a ratio  refrenced in a derviced "
+    description: "Food order total as a % of total order amount"
     type: derived
     type_params:
       expr: food_order_pct * 100
       metrics:
         - name: "food_order_pct"
   - name: "cumlative_growth_mom"
-    description: "Contrived example to show a ratio  refrenced in a derviced "
+    description: " "
     label: "test"    
     type: derived
     type_params:
@@ -129,7 +129,7 @@ metrics:
           alias: cumulative_order_amount_lm
   - name: "food_order_gross_profit"
     label: "test"    
-    description: "The gross profit for each order"
+    description: "The gross profit for each food order"
     type: derived
     type_params:
       expr: revenue - cost
@@ -150,21 +150,21 @@ metrics:
       measure: order_total
   - name: "cumulative_order_ammount_l1m"
     label: "cumulative_order_ammount_l1m"    
-    description: "The cumulative value of all orders"
+    description: "Trailing 1 month cumulative order amount"
     type: cumulative
     type_params:
       measure: order_total
       window: 1 month
   - name: "cumulative_order_amount_mtd"
     label: "cumulative_order_amount_mtd"    
-    description: "The cumulative value of all orders"
+    description: "The month to date value of all orders"
     type: cumulative
     type_params:
       measure: order_total
       grain_to_date: month
   - name: "order_count"
     label: "order_count"    
-    description: "The number of orders places"
+    description: "The number of orders placeds"
     type: simple
     type_params:
       measure: orders
@@ -188,7 +188,7 @@ metrics:
       measure: customers
   - name: "returning_customers_with_orders"
     label: "test"    
-    description: "Unique count of customers placing orders"
+    description: "Unique count of returing customers placing orders"
     type: simple
     type_params:
       measure: customers
@@ -196,7 +196,7 @@ metrics:
        {{dimension('customer_type', entity_path=['customer'])}} = 'returning'
   - name: "new_customer_with_orders"
     label: "test"    
-    description: "Unique count of customers placing orders"
+    description: "Unique count of new customers placing orders"
     type: simple
     type_params:
       measure: customers
