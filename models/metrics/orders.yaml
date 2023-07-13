@@ -81,7 +81,7 @@ semantic_models:
       - name: location_name
         type: categorical
       - name: ds
-        expr: ordered_at
+        expr: cast(ordered_at as date)
         type: time
         type_params:
           time_granularity: day
