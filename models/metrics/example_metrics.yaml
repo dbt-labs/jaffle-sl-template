@@ -64,13 +64,13 @@ metrics:
     filter: |
       {{dimension('order_total_dim')}} >= 20
   - name: "jumbo_order"
-    description: "Order with order values over 70."
+    description: "Order with order values over 80."
     type: SIMPLE
     label: "test"
     type_params:
       measure: orders
     filter: |
-      {{dimension('order_total_dim')}} >= 70
+      {{dimension('order_total_dim')}} >= 80
   - name: "food_order_amount"
     description: "Sum order amount for food orders."
     label: "food_order_amount"
