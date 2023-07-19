@@ -52,6 +52,7 @@ semantic_models:
       - name: order_cost
         agg: sum
         agg_time_dimension: ds
+        description: test
       - name: locations_with_orders
         expr: location_id
         agg: count_distinct
