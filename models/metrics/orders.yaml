@@ -10,9 +10,8 @@ semantic_models:
       agg_time_dimension: ds
     #Entities. These usually corespond to keys in the table.
     entities:
-      - name: order
+      - name: order_id
         type: primary
-        expr: order_id
       - name: location
         type: foreign
         expr: location_id

@@ -1,0 +1,9 @@
+metrics:
+  - name: "large_orders"
+    description: "Order with order values over 20."
+    type: SIMPLE
+    label: "Large Orders"
+    type_params:
+      measure: orders
+    filter: |
+      {{dimension('order_total_dim')}} >= 20
