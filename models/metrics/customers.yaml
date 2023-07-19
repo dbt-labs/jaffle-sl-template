@@ -21,8 +21,6 @@ semantic_models:
         type: categorical
       - name: count_lifetime_orders
         type: categorical
-      - name: lifetime_spend_pre_tax
-        type: categorical
       - name: lifetime_spend
         type: categorical
       - name: customer_type

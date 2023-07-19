@@ -10,9 +10,8 @@ semantic_models:
       agg_time_dimension: ds
     #Entities. These usually corespond to keys in the table.
     entities:
-      - name: order
+      - name: order_id
         type: primary
-        expr: order_id
       - name: location
         type: foreign
         expr: location_id
@@ -52,6 +51,7 @@ semantic_models:
       - name: order_cost
         agg: sum
         agg_time_dimension: ds
+        description: test
       - name: locations_with_orders
         expr: location_id
         agg: count_distinct

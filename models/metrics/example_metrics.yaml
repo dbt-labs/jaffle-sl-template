@@ -13,17 +13,17 @@ metrics:
     label: "order_total"
     type_params:
       measure: order_total
-  - name: order_total_growth_mom
-    description: "Percentage growth of orders compared to orderd 1 month"
-    type: derived
-    label: order_total_growth_mom
-    type_params:
-      expr: (order_total - order_total_prev_month)*100/order_total_prev_month
-      metrics: 
-        - name: order_total
-        - name: order_total
-          offset_window: 1 month
-          alias: order_total_prev_month
+  # - name: order_total_growth_mom
+  #   description: "Percentage growth of orders compared to orderd 1 month"
+  #   type: derived
+  #   label: order_total_growth_mom
+  #   type_params:
+  #     expr: (order_total - order_total_prev_month)*100/order_total_prev_month
+  #     metrics: 
+  #       - name: order_total
+  #       - name: order_total
+  #         offset_window: 1 month
+  #         alias: order_total_prev_month
   - name: "customers"
     description: "Count of customers"
     type: simple
@@ -58,19 +58,11 @@ metrics:
   - name: "large_order"
     description: "Order with order values over 20."
     type: SIMPLE
-    label: "test"
+    label: "Large Order"
     type_params:
       measure: orders
     filter: |
       {{dimension('order_total_dim')}} >= 20
-  - name: "jumbo_order"
-    description: "Order with order values over 70."
-    type: SIMPLE
-    label: "test"
-    type_params:
-      measure: orders
-    filter: |
-      {{dimension('order_total_dim')}} >= 70
   - name: "food_order_amount"
     description: "Sum order amount for food orders."
     label: "food_order_amount"
@@ -85,17 +77,17 @@ metrics:
       numerator: food_order_amount
       denominator: order_total
 #Ratio type metric
-  - name: "new_customer_order_pct"
-    description: "The orders from new customers as the % of the total order"
-    label: "test"    
-    type: ratio
-    type_params: 
-      numerator:
-        name: customers
-        filter: | #entity_path is the entity the dimension belongs to.
-          {{dimension('customer_type', entity_path=['customer'])}} = 'new'
-        alias: customer_numerator
-      denominator: customers
+  # - name: "new_customer_order_pct"
+  #   description: "The orders from new customers as the % of the total order"
+  #   label: "test"    
+  #   type: ratio
+  #   type_params: 
+  #     numerator:
+  #       name: customers
+  #       filter: | #entity_path is the entity the dimension belongs to.
+  #         {{dimension('customer_type', entity_path=['customer'])}} = 'new'
+  #       alias: customer_numerator
+  #     denominator: customers
 #Derived Metrics      
   - name: "order_gross_profit"  
     description: "Gross profit from each order."
@@ -116,17 +108,17 @@ metrics:
       expr: food_order_pct * 100
       metrics:
         - name: "food_order_pct"
-  - name: "cumlative_growth_mom"
-    description: " "
-    label: "test"    
-    type: derived
-    type_params:
-      expr: cumulative_order_amount/cumulative_order_amount_lm
-      metrics:
-        - name: "cumulative_order_amount"
-        - name: "cumulative_order_amount"
-          offset_window: 1 month
-          alias: cumulative_order_amount_lm
+  # - name: "cumlative_growth_mom"
+  #   description: " "
+  #   label: "test"    
+  #   type: derived
+  #   type_params:
+  #     expr: cumulative_order_amount/cumulative_order_amount_lm
+  #     metrics:
+  #       - name: "cumulative_order_amount"
+  #       - name: "cumulative_order_amount"
+  #         offset_window: 1 month
+  #         alias: cumulative_order_amount_lm
   - name: "food_order_gross_profit"
     label: "test"    
     description: "The gross profit for each food order"
