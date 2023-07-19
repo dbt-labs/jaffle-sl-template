@@ -1,9 +1,17 @@
 metrics:
   - name: "large_orders"
-    description: "Order with order values over 20."
+    description: "Order with order values over $20."
     type: SIMPLE
     label: "Large Orders"
     type_params:
       measure: orders
     filter: |
       {{dimension('order_total_dim')}} >= 20
+  - name: "jumbo_orders"
+    description: "Order with order values over $80."
+    type: SIMPLE
+    label: "Large Orders"
+    type_params:
+      measure: orders
+    filter: |
+      {{dimension('order_total_dim')}} >= 80
