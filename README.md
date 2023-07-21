@@ -1,20 +1,20 @@
 # 🥪 The Jaffle Shop 🦘
+This repo provides a production example of a dbt project containting [metrics](https://docs.getdbt.com/docs/build/metrics-overview) and [semantic models](https://docs.getdbt.com/docs/build/semantic-models). These resources are required to use the dbt semantic layer. To get started, follow the instructions below: 
 
-## Clone
+## Clone the repo.
 
 ```shell
 git clone git@github.com:dbt-labs/jaffle-sl-template.git
 cd jaffle-sl-template
 ```
 
-## Install
+## Install Metricflow
 
 Install metricflow, et al within a virtual environment:
 ```shell
 python -m venv .env
 source .env/bin/activate
 pip install "dbt-metricflow[<YOUR_DBT_ADAPTER_NAME>]"
-source .env/bin/activate
 dbt --version
 mf --version
 ```
@@ -33,7 +33,7 @@ dbt deps
 dbt seed
 ```
 
-## Run
+## Run your dbt project, and query metrics
 
 ```shell
 dbt build --exclude path:jaffle-data
