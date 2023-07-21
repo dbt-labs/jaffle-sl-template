@@ -206,11 +206,3 @@ metrics:
     type: simple
     type_params:
       measure: order_cost
-  - name: brooklyn_order_amount
-    description: "Sum of orders from Brooklyn."
-    type: simple
-    label: "brooklyn_order_amount"
-    type_params:
-      measure: orders
-    filter: |
-      {{dimension('location_name')}} in ('Brooklyn')
