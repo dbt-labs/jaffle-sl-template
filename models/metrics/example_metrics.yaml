@@ -1,104 +1,106 @@
 metrics:
+  - name: "order_count"
+    description: "Count of orders"
+    type: simple
+    label: "test"
+    type_params:
+      measure: orders
   - name: "order_total"
     description: "Sum of orders value"
     type: simple
     label: "test"
     type_params:
       measure: order_total
-  # - name: "east_coast_order_amount"
-  #   description: "Sum of orders from the east coast."
-  #   type: simple
-  #   label: "test"
-  #   type_params:
-  #     measure: orders
-  #   filter: |
-  #     {{dimension('location_name')}} in ('Philadelphia')
-  # - name: "customers"
-  #   description: "Count of customers"
-  #   type: simple
-  #   label: "test"
-  #   type_params:
-  #     measure: customers
-  # - name: "locations_with_orders"
-  #   description: "Count of customers"
-  #   type: simple
-  #   label: "test"
-  #   type_params:
-  #     measure: locations_with_orders
-  # - name: "median_order_value"
-  #   description: "Count of customers"
-  #   type: simple
-  #   label: "test"
-  #   type_params:
-  #     measure: median_order_value
-  # - name: "order_value_p99"
-  #   description: "Count of customers"
-  #   type: simple
-  #   label: "test"
-  #   type_params:
-  #     measure: order_value_p99
-  # - name: "discrete_order_value_p99"
-  #   description: "Count of customers"
-  #   type: simple
-  #   label: "test"
-  #   type_params:
-  #     measure: order_value_p99
-  # #SIMPLE TYPE METRICS
-  # # - name: "large_order"
-  # #   description: "Order with order values over 20."
-  # #   type: SIMPLE
-  # #   label: "test"
-  # #   type_params:
-  # #     measure: orders
-  # #   filter: |
-  # #     {{dimension('order_total_dim')}} >= 20
-  # # - name: "jumbo_order"
-  # #   description: "Order with order values over 50."
-  # #   type: SIMPLE
-  # #   label: "test"
-  # #   type_params:
-  # #     measure: orders
-  # #   filter: |
-  # #     {{dimension('order_total_dim')}} >= 70
-  # - name: "food_order_amount"
-  #   description: "Sum order amoung for food orders."
-  #   label: "test"
-  #   type: simple
-  #   type_params:
-  #     measure: food_orders
+  - name: "food_order_total"
+    description: "Sum of orders value for food items only"
+    type: simple
+    label: "test"
+    type_params:
+      measure: order_total
+    filter: |
+      {{ dimension('is_food_item') }} = True
+  - name: "supply_cost"
+    label: "test"
+    description: The cost of supplies for fulfilling orders.
+    type: simple
+    type_params:
+      measure: supply_cost
+  - name: "large_order"
+    description: "Order with order values over 20."
+    type: simple
+    label: "test"
+    type_params:
+      measure: orders
+    filter: |
+      {{ dimension('order_total_dim') }} >= 20
+  - name: "jumbo_order"
+    description: "Order with order values over 50."
+    type: simple
+    label: "test"
+    type_params:
+      measure: orders
+    filter: |
+      {{ dimension('order_total_dim') }} >= 70
+  - name: "customers"
+    description: "Count of customers"
+    type: simple
+    label: "test"
+    type_params:
+      measure: customers
+  - name: "median_order_value"
+    description: "Median order value"
+    type: simple
+    label: "test"
+    type_params:
+      measure: median_order_value
+  - name: "order_value_p99"
+    description: "Top 1% order value using approximate percentile"
+    type: simple
+    label: "test"
+    type_params:
+      measure: order_value_p99
+  - name: "discrete_order_value_p99"
+    description: "Top 1% order value using discrete percentile"
+    type: simple
+    label: "test"
+    type_params:
+      measure: discrete_order_value_p99
 
-  # # - name: "food_order_pct"
-  # #   description: "The food cost as the % of the total order"
-  # #   label: "test"
-  # #   type: ratio
-  # #   type_params:
-  # #     numerator: food_order_amount
-  # #     denominator: order_total
-  # #Ratio type metric
-  # # - name: "new_customer_order_pct"
-  # #   description: "The food cost as the % of the total order"
-  # #   label: "test"
-  # #   type: ratio
-  # #   type_params:
-  # #     numerator:
-  # #       name: customers
-  # #       filter: | #entity_path is the entity the dimension belongs to.
-  # #         {{dimension('customer_type', entity_path=['customer'])}} = 'new'
-  # #       alias: customer_numerator
-  # #     denominator: customers
-  # #Derived Metrics
-  # # - name: "order_gross_profit"
-  # #   description: "Gross profit from each order."
-  # #   type: derived
-  # #   label: "test"
-  # #   type_params:
-  # #     expr: revenue - cost
-  # #     metrics:
-  # #       - name: food_order_amount
-  # #         alias: revenue
-  # #       - name: order_amount
-  # #         alias: cost
-  # # - name: "food_order_pct_cumulative"
+  # Ratio type metric
+  - name: "new_customer_order_pct"
+    # description: "The food cost as the % of the total order"
+    # TODO: is this the right interpretation?
+    description: "Percentage of customers that have only made a first purchase"
+    label: "test"
+    type: ratio
+    type_params:
+      numerator:
+        name: customers
+        filter: | #entity_path is the entity the dimension belongs to. TODO: why is this neccessary?
+          {{dimension('customer_type', entity_path=['customer'])}} = 'new'
+        alias: customer_numerator
+      denominator: customers
+  - name: "food_order_pct"
+    description: "The food cost as the % of the total order"
+    label: "test"
+    type: ratio
+    type_params:
+      numerator: 
+      denominator: order_total
+  # TODO: add non additive example
+  # Derived Metrics
+  - name: "order_gross_profit"
+    description: "Gross profit from each order."
+    type: derived
+    label: "test"
+    type_params:
+      expr: revenue - cost
+      metrics:
+        - name: order_total
+          alias: revenue
+        - name: supply_cost
+          alias: cost
+  #The food cost as the % of the total order # - name: "food_order_pct_cumulative"
   # #   label: "test"
   # #   description: "Contrived example to show a ratio  refrenced in a derviced "
   # #   type: derived
@@ -170,12 +172,12 @@ metrics:
   #   type: simple
   #   type_params:
   #     measure: min_order_value
-  # - name: "customers_with_orders"
-  #   label: "test"
-  #   description: "Unique count of customers placing orders"
-  #   type: simple
-  #   type_params:
-  #     measure: customers
+  - name: "customers_with_orders"
+    label: "test"
+    description: "Unique count of customers placing orders"
+    type: simple
+    type_params:
+      measure: customers
   # - name: "returning_customers_with_orders"
   #   label: "test"
   #   description: "Unique count of customers placing orders"
@@ -198,9 +200,3 @@ metrics:
   #   type: simple
   #   type_params:
   #     measure: average_order_value
-  # - name: "order_amount"
-  #   label: "test"
-  #   description: The cost of fulfilling each order
-  #   type: simple
-  #   type_params:
-  #     measure: order_cost

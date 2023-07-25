@@ -2,7 +2,7 @@ semantic_models:
   #The name of the semantic model.
   - name: customers
     defaults:
-      agg_time_dimension: first_ordered_at
+      agg_time_dimension: ds
     description: |
       Customer dimension table. The grain of the table is one row per customer.
     model: ref('customers')
@@ -13,19 +13,3 @@ semantic_models:
     dimensions:
       - name: customer_name
         type: categorical
-      - name: count_lifetime_orders
-        type: categorical
-      - name: lifetime_spend_pre_tax
-        type: categorical
-      - name: lifetime_spend
-        type: categorical
-      - name: customer_type
-        type: categorical
-      - name: first_ordered_at
-        type: time
-        type_params:
-          time_granularity: day
-      - name: last_ordered_at
-        type: time
-        type_params:
-          time_granularity: day

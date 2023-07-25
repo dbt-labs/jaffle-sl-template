@@ -1,0 +1,21 @@
+semantic_models:
+  #The name of the semantic model.
+  - name: supplies
+    description: |
+      Supplies dimension table. The grain of the table is one row per supply.
+    model: ref('supplies')
+    entities:
+      - name: supply
+        type: primary
+        expr: supply_uuid
+      - name: product
+        type: foreign
+        expr: product_id
+    dimensions:
+      - name: supply_name
+        type: categorical
+      - name: is_perishable_supply
+        type: categorical
+    measures:
+      - name: supply_cost
+        agg: sum

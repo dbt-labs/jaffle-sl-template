@@ -7,7 +7,7 @@ semantic_models:
       agg_time_dimension: ds
 
     entities:
-      - name: order
+      - name: order_entity
         type: primary
         expr: order_id
       - name: location
@@ -25,23 +25,25 @@ semantic_models:
         type: time
         type_params:
           time_granularity: day
-      - name: is_food_order
-        type: categorical
-      - name: is_drink_order
-        type: categorical
       - name: order_total_dim
         type: categorical
         expr: order_total
       - name: is_large_order
         type: categorical
         expr: case when order_total > 50 then true else false end
+        # TODO: is this the right way to go about this?
+      - name: customer_first_order
+        type: categorical
+        expr: |
+          case when
+            lag(order_id) over (partition by customer_id order by ordered_at) is not null
+          end
 
     measures:
       - name: order_total
         agg: sum
         agg_time_dimension: ds
-      - name: food_orders_total_amount
-        expr: case when is_food_order then order_total else 0 end
+      - name: tax_paid
         agg: sum
         agg_time_dimension: ds
       - name: orders
@@ -56,32 +58,25 @@ semantic_models:
         expr: order_total
         agg: min
         agg_time_dimension: ds
-      - name: customers
-        expr: customer_id
-        agg: count_distinct
-        agg_time_dimension: ds
       - name: average_order_value
         expr: order_total
         agg: average
         agg_time_dimension: ds
-      - name: order_cost
-        agg: sum
-        agg_time_dimension: ds
-      - name: locations_with_orders
-        expr: location_id
-        agg: count_distinct
-        agg_time_dimension: ds
       - name: median_order_value
         expr: order_total
         agg: median
+        agg_time_dimension: ds
+      - name: customers
+        expr: customer_id
+        agg: count_distinct
         agg_time_dimension: ds
       - name: order_value_p99
         expr: order_total
         agg: percentile
         agg_params:
           percentile: 0.99
-          use_discrete_percentile: True
-          use_approximate_percentile: False
+          use_discrete_percentile: False
+          use_approximate_percentile: True
         agg_time_dimension: ds
       - name: discrete_order_value_p99
         expr: order_total
