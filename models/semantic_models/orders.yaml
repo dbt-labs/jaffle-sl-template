@@ -23,44 +23,34 @@ semantic_models:
     measures:
       - name: order_total
         agg: sum
-        agg_time_dimension: ds
       - name: food_orders
         expr: case when is_food_order then order_total else 0 end
         agg: sum
-        agg_time_dimension: ds
       - name: orders
         expr: "1"
         agg: sum
-        agg_time_dimension: ds
-      - name: max_order_value
+      - name: max_order_total
         expr: order_total
         agg: max
-        agg_time_dimension: ds
-      - name: min_order_value
+      - name: min_order_total
         expr: order_total
         agg: min
-        agg_time_dimension: ds
       - name: customers
         expr: customer_id
         agg: count_distinct
-        agg_time_dimension: ds
-      - name: average_order_value
+      - name: average_order_total
         expr: order_total
         agg: average
-        agg_time_dimension: ds
       - name: order_cost
         agg: sum
-        agg_time_dimension: ds
         description: test
       - name: locations_with_orders
         expr: location_id
         agg: count_distinct
-        agg_time_dimension: ds
-      - name: median_order_valie
+      - name: median_order_total
         expr: order_total
         agg: median
-        agg_time_dimension: ds
-      - name: order_value_p99
+      - name: order_total_p99
         expr: order_total
         agg: percentile
         agg_params:
@@ -68,14 +58,14 @@ semantic_models:
           use_discrete_percentile: True
           use_approximate_percentile: False
         agg_time_dimension: ds
-      - name: discrete_order_value_p99
+      - name: discrete_order_total_p99
         expr: order_total
         agg: percentile
         agg_params:
           percentile: 0.99
           use_discrete_percentile: True
           use_approximate_percentile: False
-        agg_time_dimension: ds
+
   #Dimensions,either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
     dimensions:
       - name: location_name
