@@ -171,6 +171,4 @@ metrics:
   - name: order_cost
     label: Order Cost    
     description: The cost of fulfilling each order.
-    type: simple
-    type_params:
       measure: order_cost
