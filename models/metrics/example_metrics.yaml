@@ -19,12 +19,12 @@ metrics:
       measure: order_total
     filter: |
       {{ dimension('is_food_item') }} = True
-  - name: "supply_cost"
+  - name: "supply_cost_total"
     label: "test"
     description: The cost of supplies for fulfilling orders.
     type: simple
     type_params:
-      measure: supply_cost
+      measure: supply_cost_total
   - name: "large_order"
     description: "Order with order values over 20."
     type: simple
@@ -68,24 +68,26 @@ metrics:
 
   # Ratio type metric
   - name: "new_customer_order_pct"
-    # description: "The food cost as the % of the total order"
-    # TODO: is this the right interpretation?
-    description: "Percentage of customers that have only made a first purchase"
+    description: "Percentage of new customers"
     label: "test"
     type: ratio
     type_params:
       numerator:
         name: customers
-        filter: | #entity_path is the entity the dimension belongs to. TODO: why is this neccessary?
+        filter: | #entity_path is the entity the dimension belongs to.
           {{dimension('customer_type', entity_path=['customer'])}} = 'new'
         alias: customer_numerator
       denominator: customers
   - name: "food_order_pct"
-    description: "The food cost as the % of the total order"
+    description: "The percentage of order revenue that comes from food items"
     label: "test"
     type: ratio
     type_params:
-      numerator: 
+      numerator:
+        name: order_total
+        filter: |
+          {{ dimension('is_food_item', entity_path=['product']) }} = True
+        alias: food_order_total_numerator
       denominator: order_total
   # TODO: add non additive example
   # Derived Metrics
@@ -98,7 +100,7 @@ metrics:
       metrics:
         - name: order_total
           alias: revenue
-        - name: supply_cost
+        - name: supply_cost_total
           alias: cost
   #The food cost as the % of the total order # - name: "food_order_pct_cumulative"
   # #   label: "test"

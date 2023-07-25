@@ -1,8 +1,6 @@
 semantic_models:
   #The name of the semantic model.
   - name: customers
-    defaults:
-      agg_time_dimension: ds
     description: |
       Customer dimension table. The grain of the table is one row per customer.
     model: ref('customers')

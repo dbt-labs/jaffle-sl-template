@@ -31,37 +31,30 @@ semantic_models:
       - name: is_large_order
         type: categorical
         expr: case when order_total > 50 then true else false end
-        # TODO: is this the right way to go about this?
-      - name: customer_first_order
-        type: categorical
-        expr: |
-          case when
-            lag(order_id) over (partition by customer_id order by ordered_at) is not null
-          end
 
     measures:
       - name: order_total
         agg: sum
-        agg_time_dimension: ds
       - name: tax_paid
         agg: sum
-        agg_time_dimension: ds
       - name: orders
         expr: "1"
         agg: sum
-        agg_time_dimension: ds
       - name: max_order_value
         expr: order_total
         agg: max
-        agg_time_dimension: ds
+      - name: supply_cost_total
+        expr: supply_cost
+        agg: sum
+      - name: product_price_total
+        expr: product_price
+        agg: sum
       - name: min_order_value
         expr: order_total
         agg: min
-        agg_time_dimension: ds
       - name: average_order_value
         expr: order_total
         agg: average
-        agg_time_dimension: ds
       - name: median_order_value
         expr: order_total
         agg: median

@@ -35,6 +35,19 @@ renamed as (
 
     from source
 
+),
+
+label_first_orders as (
+
+  select
+    *,
+{# TODO make this more crossdb #}
+    case when
+      first_value(order_id) over (partition by customer_id order by ordered_at) = order_id
+    then 1 else 0 end as is_first_order
+
+  from renamed
+
 )
 
-select * from renamed
+select * from label_first_orders
