@@ -19,3 +19,7 @@ semantic_models:
         type: categorical
       - name: opened_at
         type: categorical
+
+
+# • order_total: count_lifetime_orders, customer_name, customer_type, ds, first_ordered_at, is_drink_order, is_food_order, is_large_order, last_ordered_at, lifetime_spend, location_name, order_total_dim
+# • order_total: count_lifetime_orders, customer_name, customer_type, first_ordered_at, last_ordered_at, lifetime_spend, location_name, opened_at, ordered_at, tax_rate

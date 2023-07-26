@@ -1,0 +1,7 @@
+metrics:
+  - name: locations
+    description: Count of locations that placed in order. 
+    type: simple
+    label: Locations
+    type_params:
+      measure: locations_with_orders
