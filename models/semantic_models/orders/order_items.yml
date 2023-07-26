@@ -1,0 +1,32 @@
+semantic_models:
+  #The name of the semantic model.
+  - name: order_items
+    defaults:
+      agg_time_dimension: ordered_at
+    description: |
+      Items contatined in each order. The grain of the table is one row per order item.
+    #The name of the dbt model and schema
+    model: ref('int_order_items')
+    #Entities. These usually corespond to keys in the table.
+    entities:
+      - name: order_item
+        type: primary
+        expr: order_item_id
+      - name: orders
+        type: foreign
+        expr: order_id
+      - name: product
+        type: foreign
+        expr: product_id
+  #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
+    measures:
+      - name: subtotal
+        description: The subtotal for each order item. Subtotal is calculated as a sum of revenue associated with each product in an order.
+        agg: sum
+      - name: order_cost
+        description: The cost for each order item. Cost is calculated as a sum of the supply cost for each order item. 
+    dimensions:
+      - name: ordered_at
+        type: time
+        type_params:
+          time_granularity: day 
