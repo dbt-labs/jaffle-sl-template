@@ -6,7 +6,7 @@ semantic_models:
     description: |
       Items contatined in each order. The grain of the table is one row per order item.
     #The name of the dbt model and schema
-    model: ref('fct_order_items')
+    model: ref('order_items')
     #Entities. These usually corespond to keys in the table.
     entities:
       - name: order_item
@@ -36,9 +36,6 @@ semantic_models:
         description: The median revenue generated for each order item.
         agg: median
         expr: subtotal
-      - name: order_cost
-        description: The cost for each order item. Cost is calculated as a sum of the supply cost for each order item. 
-        agg: sum
     dimensions:
       - name: ordered_at
         expr: date_trunc('day', ordered_at)

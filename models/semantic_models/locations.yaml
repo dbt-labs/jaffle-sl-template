@@ -3,14 +3,13 @@ semantic_models:
   - name: locations
     description: |
       Location dimension table. The grain of the table is one row per location. 
-    #The name of the dbt model and schema
+    #The name of the dbt model
     model: ref('stg_locations')
     #Entities. These usually corespond to keys in the table.
     entities:
       - name: location
         type: primary
         expr: location_id
-
     #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
     dimensions:
       - name: location_name
@@ -19,7 +18,3 @@ semantic_models:
         type: categorical
       - name: opened_at
         type: categorical
-
-
-# • order_total: count_lifetime_orders, customer_name, customer_type, ds, first_ordered_at, is_drink_order, is_food_order, is_large_order, last_ordered_at, lifetime_spend, location_name, order_total_dim
-# • order_total: count_lifetime_orders, customer_name, customer_type, first_ordered_at, last_ordered_at, lifetime_spend, location_name, opened_at, ordered_at, tax_rate

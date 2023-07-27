@@ -6,7 +6,7 @@ semantic_models:
     description: |
       Order fact table. This table is at the order grain with one row per order. 
     #The name of the dbt model and schema
-    model: ref('fct_orders')
+    model: ref('orders')
     #Entities. These usually corespond to keys in the table.
     entities:
       - name: order_id
@@ -36,6 +36,9 @@ semantic_models:
         description: Distinct count of locations with order
         expr: location_id
         agg: count_distinct
+      - name: order_cost
+        description: The cost for each order item. Cost is calculated as a sum of the supply cost for each order item. 
+        agg: sum
     dimensions:
       - name: ordered_at
         type: time

@@ -10,8 +10,7 @@ semantic_models:
       - name: product
         type: primary
         expr: product_id
-
-  #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
+    #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
     dimensions:
       - name: product_name
         type: categorical
