@@ -1,6 +1,6 @@
 semantic_models:
   #The name of the semantic model.
-  - name: locations
+  - name: stg_locations
     description: |
       Location dimension table. The grain of the table is one row per location. 
     #The name of the dbt model
@@ -18,3 +18,10 @@ semantic_models:
         type: categorical
       - name: opened_at
         type: categorical
+metrics:
+  - name: locations
+    description: Count of locations that placed in order. 
+    type: simple
+    label: Locations
+    type_params:
+      measure: locations_with_orders

@@ -1,7 +1,7 @@
 ---
 semantic_models:
   #The name of the semantic model.
-  - name: customers
+  - name: stg_customers
     defaults:
       agg_time_dimension: first_ordered_at
     description: |
