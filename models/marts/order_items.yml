@@ -1,0 +1,144 @@
+semantic_models:
+  #The name of the semantic model.
+  - name: order_items
+    defaults:
+      agg_time_dimension: ordered_at
+    description: |
+      Items contatined in each order. The grain of the table is one row per order item.
+    #The name of the dbt model and schema
+    model: ref('order_items')
+    #Entities. These usually corespond to keys in the table.
+    entities:
+      - name: order_item
+        type: primary
+        expr: order_item_id
+      - name: order_id
+        type: foreign
+        expr: order_id
+      - name: product
+        type: foreign
+        expr: product_id
+  #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
+    measures:
+      - name: revenue
+        description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
+        agg: sum
+        expr: subtotal
+      - name: food_revenue
+        description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
+        agg: sum
+        expr: case when is_food_item = 1 then subtotal else 0 end
+      - name: drink_revenue
+        description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
+        agg: sum
+        expr: case when is_drink_item = 1 then subtotal else 0 end
+      - name: median_revenue
+        description: The median revenue generated for each order item.
+        agg: median
+        expr: subtotal
+    dimensions:
+      - name: ordered_at
+        expr: date_trunc('day', ordered_at)
+        type: time
+        type_params:
+          time_granularity: day 
+      - name: is_food_item
+        type: categorical
+      - name: is_drink_item
+        type: categorical
+metrics:
+# Simple metrics
+  - name: order_total
+    description: Sum of total order amonunt. Includes tax + revenue.
+    type: simple
+    label: Order Total
+    type_params:
+      measure: order_total
+  - name: revenue
+    description: Sum of the product revenue for each order item. Excludes tax.
+    type: simple
+    label: Revenue
+    type_params:
+      measure: revenue
+  - name: order_cost
+    description: Sum of cost for each order item. 
+    label: Order Cost
+    type: simple
+    type_params:
+      measure: order_cost
+  - name: median_revenue
+    description: The median revenue for each order item. Excludes tax. 
+    type: simple
+    label: Median Revenue
+    type_params:
+      measure: median_revenue
+  - name: large_order
+    description: "Count of orders with order total over 20."
+    type: simple
+    label: "Large Orders"
+    type_params:
+      measure: order_count
+    filter: |
+      {{dimension('order_total_dim')}} >= 20
+  - name: orders
+    description: Count of orders.
+    label: Orders
+    type: simple
+    type_params:
+      measure: order_count
+  - name: food_orders
+    description: Count of orders that contain food order items
+    label: Food Orders
+    type: simple
+    type_params:
+      measure: order_count
+    filter: |
+        {{dimension('is_food_order')}} = true
+  - name: food_revenue
+    description: The revenue from food in each order
+    label: Food Revenue
+    type: simple
+    type_params:
+      measure: food_revenue
+    
+#Ratio Metrics
+  - name: food_revenue_pct
+    description: The % of order revenue from food.
+    label: Food Revenue %
+    type: ratio
+    type_params:
+      numerator: food_revenue
+      denominator: revenue
+
+#Derived Metrics
+  - name: revenue_growth_mom
+    description: "Percentage growth of revenue compared to 1 month ago. Excluded tax"
+    type: derived
+    label: Revenue Growth % M/M
+    type_params:
+      expr: (current_revenue - revenue_prev_month)*100/revenue_prev_month
+      metrics: 
+        - name: revenue
+          alias: current_revenue
+        - name: revenue
+          offset_window: 1 month
+          alias: revenue_prev_month
+  - name: order_gross_profit
+    description: Gross profit from each order.
+    type: derived
+    label: Order Gross Profit
+    type_params:
+      expr: revenue - cost
+      metrics:
+        - name: revenue
+        - name: order_cost
+          alias: cost
+
+#Cumulative Revenue
+  - name: cumulative_revenue
+    description: The cumulative revenue for all orders. 
+    label: Cumulative Revenue (All Time) 
+    type: cumulative
+    type_params:
+      measure: revenue
+    

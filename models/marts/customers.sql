@@ -18,20 +18,27 @@ orders_mart as (
 
 ),
 
+order_items_mart as (
+
+    select * from {{ ref('order_items') }}
+),
+
 order_summary as (
 
     select
         customer_id,
 
-        count(*) as count_lifetime_orders,
-        count(*) > 1 as is_repeat_buyer,
-        min(ordered_at) as first_ordered_at,
-        max(ordered_at) as last_ordered_at,
+        count(distinct om.order_id) as count_lifetime_orders,
+        count(distinct om.order_id) > 1 as is_repeat_buyer,
+        min(om.ordered_at) as first_ordered_at,
+        max(om.ordered_at) as last_ordered_at,
+        sum(oi.subtotal) as lifetime_spend_pretax,
+        sum(om.order_total) as lifetime_spend
 
-        sum(subtotal) as lifetime_spend_pretax,
-        sum(order_total) as lifetime_spend
-
-    from orders_mart
+    from orders_mart om
+    
+    left join order_items_mart oi on om.order_id = oi.order_id
+    
     group by 1
 
 ),
