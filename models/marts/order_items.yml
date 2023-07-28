@@ -48,12 +48,6 @@ semantic_models:
         type: categorical
 metrics:
 # Simple metrics
-  - name: order_total
-    description: Sum of total order amonunt. Includes tax + revenue.
-    type: simple
-    label: Order Total
-    type_params:
-      measure: order_total
   - name: revenue
     description: Sum of the product revenue for each order item. Excludes tax.
     type: simple
