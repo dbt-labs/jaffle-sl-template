@@ -59,7 +59,8 @@ semantic_models:
         type: foreign
         expr: customer_id
     dimensions:
-      - name: date_trunc('day', ordered_at)
+      - name: ordered_at
+        expr: date_trunc('day', ordered_at)
         type: time
         type_params:
           time_granularity: day
