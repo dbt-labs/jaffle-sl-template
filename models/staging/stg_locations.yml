@@ -1,7 +1,7 @@
 semantic_models:
   - name: locations
     description: |
-      Location dimension table. The grain of the table is one row per location. 
+      Location dimension table. The grain of the table is one row per location.
     model: ref('stg_locations')
     entities:
       - name: location
@@ -24,7 +24,7 @@ semantic_models:
 
 metrics:
   - name: locations
-    description: Count of locations that placed in order. 
+    description: Count of locations that placed in order.
     type: simple
     label: Locations
     type_params:
