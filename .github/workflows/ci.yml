@@ -38,5 +38,7 @@ jobs:
           echo "     schema: dbt_metrics_ci" >> ~/.dbt/profiles.yml
       - name: Install dbt Dependencies
         run: dbt deps
+      - name: Instantiate Jaffle Shop data
+        run: dbt deps
       - name: dbt Build
         run: dbt build
