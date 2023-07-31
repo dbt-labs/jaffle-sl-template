@@ -73,13 +73,13 @@ semantic_models:
         type: categorical
     measures:
       - name: order_total
-        description: The total revenue for each order.
+        description: The total amount for each order including taxes.
         agg: sum
       - name: order_count
         expr: 1
         agg: sum
       - name: tax_paid
-        description: The toal tax paid on each order.
+        description: The total tax paid on each order.
         agg: sum
       - name: customers_with_orders
         description: Distinct count of customers placing orders
