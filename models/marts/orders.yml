@@ -47,7 +47,7 @@ semantic_models:
     defaults:
       agg_time_dimension: ordered_at
     description: |
-      Order fact table. This table is at the order grain with one row per order. 
+      Order fact table. This table is at the order grain with one row per order.
     #The name of the dbt model and schema
     model: ref('orders')
     #Entities. These usually corespond to keys in the table.
@@ -61,7 +61,7 @@ semantic_models:
         type: foreign
         expr: customer_id
     #Measures. These are the aggregations on the columns in the table.
-    measures: 
+    measures:
       - name: order_total
         description: The total revenue for each order.
         agg: sum
@@ -69,7 +69,7 @@ semantic_models:
         expr: 1
         agg: sum
       - name: tax_paid
-        description: The toal tax paid on each order. 
+        description: The toal tax paid on each order.
         agg: sum
       - name: customers_with_orders
         description: Distinct count of customers placing orders
@@ -80,21 +80,22 @@ semantic_models:
         expr: location_id
         agg: count_distinct
       - name: order_cost
-        description: The cost for each order item. Cost is calculated as a sum of the supply cost for each order item. 
+        description: The cost for each order item. Cost is calculated as a sum of the supply cost for each order item.
         agg: sum
-    #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
+    #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
     dimensions:
-      - name: ordered_at
+      - name: date_trunc('day', ordered_at)
         type: time
         type_params:
-          time_granularity: day 
+          time_granularity: day
       - name: order_total_dim
         type: categorical
         expr: order_total
       - name: is_food_order
         type: categorical
       - name: is_drink_order
-        type: categorical  
+        type: categorical
+
 metrics:
   - name: order_total
     description: Sum of total order amonunt. Includes tax + revenue.
