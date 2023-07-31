@@ -1,14 +1,11 @@
 
-with
 
 source as (
 
-    select * from raw_stores
+    select * from {{ source('ecom', 'raw_stores') }}
 
-    -- {# data runs to 2026, truncate timespan to desired range, 
-    -- current time as default #}
-    -- where opened_at <= {{ var('truncate_timespan_to') }}
-
+    -- if you generate a larger dataset, you can limit the timespan to the current time with the following line
+    -- where ordered_at <= {{ var('truncate_timespan_to') }}
 ),
 
 renamed as (
@@ -18,11 +15,13 @@ renamed as (
         ----------  ids
         id as location_id,
 
-        ---------- properties
+        ---------- text
         name as location_name,
+
+        ---------- numerics
         tax_rate,
 
-        ---------- timestamp
+        ---------- timestamps
         opened_at
 
     from source

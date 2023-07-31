@@ -2,7 +2,7 @@ with
 
 source as (
 
-    select * from raw_customers
+    select * from {{ source('ecom', 'raw_customers') }}
 
 ),
 
@@ -13,7 +13,7 @@ renamed as (
         ----------  ids
         id as customer_id,
 
-        ---------- properties
+        ---------- text
         name as customer_name
 
     from source
