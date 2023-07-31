@@ -39,6 +39,6 @@ jobs:
       - name: Install dbt Dependencies
         run: dbt deps
       - name: Instantiate Jaffle Shop data
-        run: dbt deps
+        run: dbt seed
       - name: dbt Build
         run: dbt build
