@@ -3,7 +3,7 @@ with
 
 source as (
 
-    select * from raw_stores
+    select * from {{source('ecom','raw_stores')}}
 
     -- {# data runs to 2026, truncate timespan to desired range, 
     -- current time as default #}
