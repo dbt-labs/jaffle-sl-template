@@ -33,7 +33,8 @@ semantic_models:
       Customer grain mart.
     model: ref('customers')
     entities:
-      - name: customer_id
+      - name: customer
+        expr: customer_id
         type: primary
     dimensions:
       - name: customer_name
