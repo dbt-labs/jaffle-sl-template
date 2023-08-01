@@ -39,4 +39,5 @@ metrics:
     type_params:
       measure: customers_with_orders
     filter: |
-        {{dimension('customer_type', entity_path=['customer'])}}  = 'new'
+        {{ Dimension('customer__customer_type') }}  = 'new'
+

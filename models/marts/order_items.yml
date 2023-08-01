@@ -73,7 +73,7 @@ metrics:
     type_params:
       measure: order_count
     filter: |
-      {{dimension('order_total_dim')}} >= 20
+      {{ Dimension('order_id__order_total_dim') }} >= 20
   - name: orders
     description: Count of orders.
     label: Orders
@@ -87,7 +87,7 @@ metrics:
     type_params:
       measure: order_count
     filter: |
-        {{dimension('is_food_order')}} = true
+        {{Dimension('order_id__is_food_order')}} = true
   - name: food_revenue
     description: The revenue from food in each order
     label: Food Revenue
