@@ -18,7 +18,7 @@ semantic_models:
       - name: product
         type: foreign
         expr: product_id
-  #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
+  #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
     measures:
       - name: revenue
         description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
@@ -41,7 +41,7 @@ semantic_models:
         expr: date_trunc('day', ordered_at)
         type: time
         type_params:
-          time_granularity: day
+          time_granularity: day 
       - name: is_food_item
         type: categorical
       - name: is_drink_item
@@ -55,13 +55,13 @@ metrics:
     type_params:
       measure: revenue
   - name: order_cost
-    description: Sum of cost for each order item.
+    description: Sum of cost for each order item. 
     label: Order Cost
     type: simple
     type_params:
       measure: order_cost
   - name: median_revenue
-    description: The median revenue for each order item. Excludes tax.
+    description: The median revenue for each order item. Excludes tax. 
     type: simple
     label: Median Revenue
     type_params:
@@ -72,15 +72,11 @@ metrics:
     label: "Large Orders"
     type_params:
       measure: order_count
+    filter: |
+      {{ Dimension('order_id__order_total_dim') }} >= 20
   - name: orders
     description: Count of orders.
     label: Orders
-    type: simple
-    type_params:
-      measure: order_count
-  - name: food_orders
-    description: Count of orders that contain food order items
-    label: Food Orders
     type: simple
     type_params:
       measure: order_count
@@ -90,7 +86,16 @@ metrics:
     type: simple
     type_params:
       measure: food_revenue
-
+  - name: food_orders
+    description: Count of orders that contain food order items
+    label: Food Orders
+    type: simple
+    type_params:
+      measure: order_count
+    filter: |
+        {{Dimension('order_id__is_food_order')}} = true
+    
+    
 #Ratio Metrics
   - name: food_revenue_pct
     description: The % of order revenue from food.
@@ -107,7 +112,7 @@ metrics:
     label: Revenue Growth % M/M
     type_params:
       expr: (current_revenue - revenue_prev_month)*100/revenue_prev_month
-      metrics:
+      metrics: 
         - name: revenue
           alias: current_revenue
         - name: revenue
@@ -126,8 +131,9 @@ metrics:
 
 #Cumulative Revenue
   - name: cumulative_revenue
-    description: The cumulative revenue for all orders.
-    label: Cumulative Revenue (All Time)
+    description: The cumulative revenue for all orders. 
+    label: Cumulative Revenue (All Time) 
     type: cumulative
     type_params:
       measure: revenue
+    
