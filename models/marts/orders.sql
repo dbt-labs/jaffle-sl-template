@@ -1,12 +1,6 @@
-{{
-    config(
-        materialized = 'table',
-        unique_key = 'order_id'
-    )
-}}
+with 
 
-
-with orders as (
+orders as (
     
     select * from {{ ref('stg_orders')}}
 
@@ -14,21 +8,9 @@ with orders as (
 
 order_items as (
     
-    select * from {{ ref('stg_order_items')}}
+    select * from {{ ref('order_items')}}
 
 ),
-
-products as (
-
-    select * from {{ ref('stg_products') }}
-),
-
-supplies as (
-
-    select * from {{ ref('stg_supplies') }}
-
-),
-
 
 order_items_summary as (
 
@@ -36,22 +18,19 @@ order_items_summary as (
 
         order_items.order_id,
 
-        sum(supplies.supply_cost) as order_cost,
+        sum(supply_cost) as order_cost,
         sum(is_food_item) as count_food_items,
         sum(is_drink_item) as count_drink_items
 
 
     from order_items
 
-    left join supplies on order_items.product_id = supplies.product_id
-    left join products on order_items.product_id = products.product_id
-
     group by 1
 
 ),
 
 
-final as (
+compute_booleans as (
     select
 
         orders.*,
@@ -64,4 +43,4 @@ final as (
     left join order_items_summary on orders.order_id = order_items_summary.order_id
 )
 
-select * from final
+select * from compute_booleans

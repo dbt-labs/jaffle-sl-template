@@ -41,16 +41,14 @@ models:
         description: A boolean indicating if this order included any food items.
       - name: is_drink_order
         description: A boolean indicating if this order included any drink items.
+
 semantic_models:
-  #The name of the semantic model.
   - name: orders
     defaults:
       agg_time_dimension: ordered_at
     description: |
-      Order fact table. This table is at the order grain with one row per order. 
-    #The name of the dbt model and schema
+      Order fact table. This table is at the order grain with one row per order.
     model: ref('orders')
-    #Entities. These usually corespond to keys in the table.
     entities:
       - name: order_id
         type: primary
@@ -60,16 +58,28 @@ semantic_models:
       - name: customer
         type: foreign
         expr: customer_id
-    #Measures. These are the aggregations on the columns in the table.
-    measures: 
+    dimensions:
+      - name: ordered_at
+        expr: date_trunc('day', ordered_at)
+        type: time
+        type_params:
+          time_granularity: day
+      - name: order_total_dim
+        type: categorical
+        expr: order_total
+      - name: is_food_order
+        type: categorical
+      - name: is_drink_order
+        type: categorical
+    measures:
       - name: order_total
-        description: The total revenue for each order.
+        description: The total amount for each order including taxes.
         agg: sum
       - name: order_count
         expr: 1
         agg: sum
       - name: tax_paid
-        description: The toal tax paid on each order. 
+        description: The total tax paid on each order.
         agg: sum
       - name: customers_with_orders
         description: Distinct count of customers placing orders
@@ -80,21 +90,9 @@ semantic_models:
         expr: location_id
         agg: count_distinct
       - name: order_cost
-        description: The cost for each order item. Cost is calculated as a sum of the supply cost for each order item. 
+        description: The cost for each order item. Cost is calculated as a sum of the supply cost for each order item.
         agg: sum
-    #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
-    dimensions:
-      - name: ordered_at
-        type: time
-        type_params:
-          time_granularity: day 
-      - name: order_total_dim
-        type: categorical
-        expr: order_total
-      - name: is_food_order
-        type: categorical
-      - name: is_drink_order
-        type: categorical  
+
 metrics:
   - name: order_total
     description: Sum of total order amonunt. Includes tax + revenue.
@@ -102,3 +100,25 @@ metrics:
     label: Order Total
     type_params:
       measure: order_total
+  - name: large_order
+    description: "Count of orders with order total over 20."
+    type: simple
+    label: "Large Orders"
+    type_params:
+      measure: order_count
+    filter: |
+      {{ Dimension('order_id__order_total_dim') }} >= 20
+  - name: orders
+    description: Count of orders.
+    label: Orders
+    type: simple
+    type_params:
+      measure: order_count
+  - name: food_orders
+    description: Count of orders that contain food order items
+    label: Food Orders
+    type: simple
+    type_params:
+      measure: order_count
+    filter: |
+      {{ Dimension('order_id__is_food_order') }} = true

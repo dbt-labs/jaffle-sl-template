@@ -1,9 +1,3 @@
-{{
-    config(
-        materialized='table'
-    )
-}}
-
 with
 
 customers as (
@@ -12,13 +6,13 @@ customers as (
 
 ),
 
-orders_mart as (
+orders as (
 
     select * from {{ ref('orders') }}
 
 ),
 
-order_items_mart as (
+order_items as (
 
     select * from {{ ref('order_items') }}
 ),
@@ -28,16 +22,16 @@ order_summary as (
     select
         customer_id,
 
-        count(distinct om.order_id) as count_lifetime_orders,
-        count(distinct om.order_id) > 1 as is_repeat_buyer,
-        min(om.ordered_at) as first_ordered_at,
-        max(om.ordered_at) as last_ordered_at,
-        sum(oi.subtotal) as lifetime_spend_pretax,
-        sum(om.order_total) as lifetime_spend
+        count(distinct orders.order_id) as count_lifetime_orders,
+        count(distinct orders.order_id) > 1 as is_repeat_buyer,
+        min(orders.ordered_at) as first_ordered_at,
+        max(orders.ordered_at) as last_ordered_at,
+        sum(order_items.product_price) as lifetime_spend_pretax,
+        sum(orders.order_total) as lifetime_spend
 
-    from orders_mart om
+    from orders
     
-    left join order_items_mart oi on om.order_id = oi.order_id
+    left join order_items on orders.order_id = order_items.order_id
     
     group by 1
 

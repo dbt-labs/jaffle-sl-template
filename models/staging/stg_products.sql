@@ -1,9 +1,8 @@
-
 with
 
 source as (
 
-    select * from {{source('ecom','raw_products')}}
+    select * from {{ source('ecom', 'raw_products') }}
 
 ),
 
@@ -14,14 +13,16 @@ renamed as (
         ----------  ids
         sku as product_id,
 
-        ---------- properties
+        ---------- text
         name as product_name,
         type as product_type,
         description as product_description,
-        (price / 100.0) as product_price,
 
 
-        ---------- derived
+        ---------- numerics
+        (price / 100.0)::float as product_price,
+
+        ---------- booleans
         case
             when type = 'jaffle' then 1
             else 0
