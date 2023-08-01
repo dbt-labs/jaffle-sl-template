@@ -86,15 +86,6 @@ metrics:
     type: simple
     type_params:
       measure: food_revenue
-  - name: food_orders
-    description: Count of orders that contain food order items
-    label: Food Orders
-    type: simple
-    type_params:
-      measure: order_count
-    filter: |
-        {{Dimension('order_id__is_food_order')}} = true
-    
     
 #Ratio Metrics
   - name: food_revenue_pct
