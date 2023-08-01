@@ -72,15 +72,11 @@ metrics:
     label: "Large Orders"
     type_params:
       measure: order_count
+    filter: |
+      {{ Dimension('order_id__order_total_dim') }} >= 20
   - name: orders
     description: Count of orders.
     label: Orders
-    type: simple
-    type_params:
-      measure: order_count
-  - name: food_orders
-    description: Count of orders that contain food order items
-    label: Food Orders
     type: simple
     type_params:
       measure: order_count
@@ -90,6 +86,15 @@ metrics:
     type: simple
     type_params:
       measure: food_revenue
+  - name: food_orders
+    description: Count of orders that contain food order items
+    label: Food Orders
+    type: simple
+    type_params:
+      measure: order_count
+    filter: |
+        {{Dimension('order_id__is_food_order')}} = true
+
 
 #Ratio Metrics
   - name: food_revenue_pct
