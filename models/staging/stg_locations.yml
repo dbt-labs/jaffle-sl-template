@@ -23,7 +23,7 @@ semantic_models:
       - name: location_name
         type: categorical
       - name: opened_at
-        expr: date_trunc('day', opened_at)
+        expr: opened_at
         type: time
         type_params:
           time_granularity: day

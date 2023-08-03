@@ -18,11 +18,11 @@ renamed as (
         customer as customer_id,
 
         ---------- numerics
-        (order_total / 100.0)::float as order_total,
-        (tax_paid / 100.0)::float as tax_paid,
+        (order_total / 100.0) as order_total,
+        (tax_paid / 100.0) as tax_paid,
 
         ---------- timestamps
-        ordered_at
+        {{dbt.date_trunc('day','ordered_at')}} as ordered_at
 
     from source
 

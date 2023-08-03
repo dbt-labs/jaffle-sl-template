@@ -20,7 +20,7 @@ renamed as (
 
 
         ---------- numerics
-        (price / 100.0)::float as product_price,
+        (price / 100.0) as product_price,
 
         ---------- booleans
         case
