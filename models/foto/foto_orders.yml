@@ -1,0 +1,81 @@
+models:
+  - name: foto_orders
+
+
+semantic_models:
+  - name: foto_orders_semantic_model
+    defaults:
+      agg_time_dimension: created
+    description: small subset of our orders table. one row per order.
+    model: ref('foto_orders')
+    entities:
+      - name: id
+        type: primary
+      - name: agent
+        type: foreign
+        expr: agent_id
+      - name: coupon
+        type: foreign
+        expr: coupon_id
+      - name: photographer
+        type: foreign
+        expr: photographer_id
+      - name: gallery
+        type: foreign
+        expr: gallery_id
+      - name: rate
+        type: foreign
+        expr: rate_id
+    dimensions:
+      - name: created
+        expr: created
+        type: time
+        type_params:
+          time_granularity: day
+      - name: type
+        type: categorical
+      - name: currency
+        type: categorical
+      - name: payment_status
+        type: categorical
+    measures:
+      - name: sum_total_eur
+        description: the total order amount in eur
+        agg: sum
+      - name: sum_total
+        description: the total order amount in the original currency
+        agg: sum
+      - name: order_count
+        expr: 1
+        agg: sum
+      - name: tax_paid
+        description: the total tax paid on each order.
+        agg: sum
+      - name: photographers_with_orders
+        description: distinct count of photographers placing orders
+        agg: count_distinct
+        expr: photographer_id
+      - name: coupons_used
+        description: distinct count of coupons used
+        expr: coupon_id
+        agg: count_distinct
+
+metrics:
+  - name: sum_total_eur
+    description: sum of total order amonunt in eur
+    type: simple
+    label: sum total eur
+    type_params:
+      measure: sum_total_eur
+  - name: sum_total
+    description: sum of total order amonunt in the original currency
+    type: simple
+    label: sum total
+    type_params:
+      measure: sum_total
+  - name: count_orders
+    description: count of orders.
+    label: orders
+    type: simple
+    type_params:
+      measure: order_count
