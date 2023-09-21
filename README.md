@@ -12,9 +12,9 @@ cd jaffle-sl-template
 
 Install metricflow, et al within a virtual environment:
 ```shell
-python -m venv .env
-source .env/bin/activate
-pip install "dbt-metricflow[<YOUR_DBT_ADAPTER_NAME>]"
+python -m venv .venv
+source .venv/bin/activate
+pip install "dbt-metricflow[snowflake]"
 dbt --version
 mf --version
 ```
@@ -38,5 +38,5 @@ dbt seed
 ```shell
 dbt build --exclude path:jaffle-data
 mf validate-configs
-mf query --metrics large_orders
+mf query --metrics large_order
 ```
