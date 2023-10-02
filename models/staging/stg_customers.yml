@@ -13,7 +13,7 @@ semantic_models:
       - name: customer
         type: primary
         expr: customer_id
-    #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
+    #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
     dimensions:
       - name: customer_name
         type: categorical
@@ -24,10 +24,12 @@ semantic_models:
       - name: customer_type
         type: categorical
       - name: first_ordered_at
-        type: time 
+        type: time
+        expr: date_trunc('day', first_ordered_at)
         type_params:
           time_granularity: day
       - name: last_ordered_at
-        type: time 
+        type: time
+        expr: date_trunc('day', last_ordered_at)
         type_params:
           time_granularity: day
