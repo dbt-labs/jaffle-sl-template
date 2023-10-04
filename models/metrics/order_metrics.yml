@@ -1,0 +1,7 @@
+metrics:
+  - name: order_total
+    description: Sum of total order amount. Includes tax + revenue.
+    type: simple
+    label: Order Total
+    type_params:
+      measure: order_total

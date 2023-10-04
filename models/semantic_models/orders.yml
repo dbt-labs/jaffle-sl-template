@@ -54,11 +54,3 @@ semantic_models:
         type: categorical
       - name: is_drink_order
         type: categorical  
-
-metrics:
-  - name: order_total
-    description: Sum of total order amount. Includes tax + revenue.
-    type: simple
-    label: Order Total
-    type_params:
-      measure: order_total
