@@ -26,7 +26,7 @@ models:
               values: ["new", "returning"]
 
 semantic_models:
-  - name: customers
+  - name: customers__test
     defaults:
       agg_time_dimension: first_ordered_at
     description: |
