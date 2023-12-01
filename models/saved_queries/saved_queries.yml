@@ -1,0 +1,15 @@
+saved_queries:
+  - name: high_value_customers
+    description: Customers that have placed a lot of orders
+    query_params:
+      metrics:
+        - orders
+      group_by:
+        - Dimension('customer__customer_name')
+        - Dimension('customer__count_lifetime_orders')
+      where:
+        - "{{ Dimension('customer__count_lifetime_orders') }} > 100"
+    exports:
+      - name: high_value_customers
+        config:
+          export_as: table
