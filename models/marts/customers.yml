@@ -76,3 +76,19 @@ metrics:
       measure: customers_with_orders
     filter: |
       {{ Dimension('customer__customer_type') }}  = 'new'
+
+saved_queries:
+  - name: new_customer_orders
+    description: New customer orders by name and time
+    query_params:
+      metrics:
+        - orders
+      group_by:
+        - Dimension('customer__customer_name')
+        - TimeDimension('metric_time', 'day')
+      where:
+        - "{{ Dimension('customer__customer_type') }}  = 'new'"
+    exports:
+      - name: new_customer_orders
+        config:
+          export_as: table
