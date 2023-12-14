@@ -15,3 +15,4 @@ models/metrics/metrics_test
 models/metrics/semantic_manifest.json
 semantic_manifest
 dbt-core/
+clout-env

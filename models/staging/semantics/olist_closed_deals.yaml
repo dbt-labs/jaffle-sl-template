@@ -1,0 +1,70 @@
+# mql_id,seller_id,sdr_id,sr_id,won_date,business_segment,lead_type,lead_behaviour_profile,has_company,has_gtin,average_stock,business_type,declared_product_catalog_size,declared_monthly_revenue
+semantic_models:
+  - name: olist_closed_deals
+    description: "Table showing all seller contacts for an ecommerce marketplace"
+    model: ref('olist_closed_deals')
+    defaults:
+      agg_time_dimension: won_date
+    entities:
+      - name: seller
+        type: foreign
+        expr: seller_id
+      - name: mql
+        type: primary
+        expr: mql_id
+      - name: landing_page
+        type: foreign
+        expr: landing_page_id
+    dimensions:
+      - name: won_date
+        expr: won_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: business_segment
+        type: categorical
+      - name: lead_type
+        type: categorical
+      - name: lead_behaviour_profile
+        type: categorical
+      - name: has_company
+        type: categorical
+    measures:
+      - name: sellers
+        agg: count
+        expr: seller_id
+        create_metric: true
+metrics:
+  - name: mql_to_seller_conversion_rate_base
+    description: "Conversion rate from MQL to seller"
+    type: conversion
+    label: MQL to Seller Conversion Rate
+    type_params:
+      conversion_type_params:
+        base_measure: mqls
+        conversion_measure: sellers
+        entity: mql
+  - name: mql_to_seller_conversion_rate_7_day_window
+    description: "Conversion rate from MQL to seller"
+    type: conversion
+    label: MQL to Seller Conversion Rate (7 day window)
+    type_params:
+      conversion_type_params:
+        # calculation: CONVERSIONS
+        base_measure: mqls
+        conversion_measure: 
+          name: sellers
+          fill_nulls_with: 0
+        entity: mql
+        window: 7 days
+
+        # #Conversion Metrics
+  # - name: visit_buy_conversions
+  #   description: Count of orders.
+  #   label: Ordersa
+  #   type: conversion
+  #   type_params:
+  #     conversion_type_params:
+  #       base_measure: order_count
+  #       conversion_measure: order_count
+  #       entity: order_id

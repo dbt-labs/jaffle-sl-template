@@ -64,6 +64,11 @@ semantic_models:
         type: time
         type_params:
           time_granularity: day
+      - name: ordered_at_test
+        expr: ordered_at
+        type: time
+        type_params:
+          time_granularity: day
       - name: order_total_dim
         type: categorical
         expr: order_total
@@ -122,3 +127,10 @@ metrics:
       measure: order_count
     filter: |
       {{ Dimension('order_id__is_food_order') }} = true
+  - name: orders_last_7_days
+    description: Count of orders.
+    label: orders last 7 days
+    type: cumulative
+    type_params:
+      measure: order_count
+      window: 7 days

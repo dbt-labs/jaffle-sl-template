@@ -110,3 +110,16 @@ metrics:
     type: cumulative
     type_params:
       measure: revenue
+
+  # #Conversion Metrics
+  # - name: visit_buy_conversions
+  #   description: Count of orders.
+  #   label: Ordersa
+  #   type: conversion
+  #   type_params:
+  #     conversion_type_params:
+  #       base_measure: order_count
+  #       conversion_measure: order_count
+  #       entity: order_id
+
+  
