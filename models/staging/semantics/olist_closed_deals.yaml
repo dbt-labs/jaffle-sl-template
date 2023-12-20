@@ -34,7 +34,7 @@ semantic_models:
         agg: count
         expr: seller_id
         create_metric: true
-metrics:
+metrics: 
   - name: mql_to_seller_conversion_rate_base
     description: "Conversion rate from MQL to seller"
     type: conversion
@@ -57,14 +57,44 @@ metrics:
           fill_nulls_with: 0
         entity: mql
         window: 7 days
-
-        # #Conversion Metrics
-  # - name: visit_buy_conversions
-  #   description: Count of orders.
-  #   label: Ordersa
-  #   type: conversion
-  #   type_params:
-  #     conversion_type_params:
-  #       base_measure: order_count
-  #       conversion_measure: order_count
-  #       entity: order_id
+  - name: mql_to_seller_conversion_rate_7_day_window_with_filter
+    description: "Conversion rate from MQL to seller"
+    type: conversion
+    label: MQL to Seller Conversion Rate (7 day window) with filter 
+    type_params:
+      conversion_type_params:
+        calculation: conversions
+        base_measure: mqls
+        conversion_measure: 
+          name: sellers
+          fill_nulls_with: 0
+        entity: mql
+        window: 7 days
+    filter: |
+      {{ Dimension('mql__lead_type') }} = 'online_medium'
+  - name: mql_to_seller_conversion_rate_1_week_window
+    description: "Conversion rate from MQL to seller"
+    type: conversion
+    label: MQL to Seller Conversion Rate (1 week day window)
+    type_params:
+      conversion_type_params:
+        # calculation: CONVERSIONS
+        base_measure: mqls
+        conversion_measure: 
+          name: sellers
+          fill_nulls_with: 0
+        entity: mql
+        window: 1 week
+  - name: conversion_rate_wow
+    description: "Conversion rate wow"
+    type: derived
+    label: Conversion Rate WoW
+    meta:
+      title: Conversion Rate WoW
+      short_description: Conversion Rate WoW
+      description: Conversion Rate WoW
+    type_params:
+      expr: current_conversion_rate
+      metrics:
+        - name: mql_to_seller_conversion_rate_base
+          alias: current_conversion_rate
