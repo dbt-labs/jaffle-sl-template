@@ -76,6 +76,13 @@ metrics:
       measure: customers_with_orders
     filter: |
       {{ Dimension('customer__customer_type') }}  = 'new'
+  - name: ratio_new_customers
+    description: New customers to all customers
+    label: New customers to all customers
+    type: ratio
+    type_params:
+      numerator: new_customer
+      denominator: customers_with_orders
 
 saved_queries:
   - name: new_customer_orders
