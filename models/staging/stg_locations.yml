@@ -7,6 +7,10 @@ models:
         tests:
           - not_null
           - unique
+      - name: location_name
+      - name: tax_rate
+      - name: opened_at
+      - name: cnt_employee
 
 semantic_models:
   - name: locations

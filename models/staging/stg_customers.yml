@@ -7,3 +7,6 @@ models:
         tests:
           - not_null
           - unique
+      - name: customer_name
+      - name: customer_gender
+      - name: customer_birthday
