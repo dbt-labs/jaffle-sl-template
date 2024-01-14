@@ -7,3 +7,12 @@ models:
         tests:
           - not_null
           - unique
+      - name: location_id
+        description: The foreign key relating to the location the order was placed at.
+      - name: customer_id
+        description: The foreign key relating to the customer who placed the order.
+      - name: order_total
+        description: The total amount of the order in USD including tax.
+      - name: tax_paid
+        description: The total tax paid on each order.
+      - name: ordered_at

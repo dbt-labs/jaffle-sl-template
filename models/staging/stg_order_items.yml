@@ -7,3 +7,5 @@ models:
         tests:
           - not_null
           - unique
+      - name: order_id
+      - name: product_id

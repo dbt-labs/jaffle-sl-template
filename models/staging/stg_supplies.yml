@@ -10,3 +10,8 @@ models:
         tests:
           - not_null
           - unique
+      - name: supply_id
+      - name: product_id
+      - name: supply_name
+      - name: supply_cost
+      - name: is_perishable_supply
