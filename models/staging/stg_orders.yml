@@ -16,3 +16,31 @@ models:
       - name: tax_paid
         description: The total tax paid on each order.
       - name: ordered_at
+
+semantic_models:
+  #The name of the semantic model.
+  - name: stg_orders
+    description: |
+      Orders fact table. The grain of the table is one row per order.
+    #The name of the dbt model and schema
+    model: ref('stg_orders')
+    #Entities. These usually corespond to keys in the table.
+    entities:
+      - name: order_id
+        type: primary
+      - name: location
+        type: foreign
+        expr: location_id
+      - name: customer
+        type: foreign
+        expr: customer_id
+    #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
+    dimensions:
+      - name: ordered_at
+        expr: ordered_at
+        type: time
+        type_params:
+          time_granularity: day
+      - name: order_total_dim
+        type: categorical
+        expr: order_total
