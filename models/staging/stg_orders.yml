@@ -44,3 +44,12 @@ semantic_models:
       - name: order_total_dim
         type: categorical
         expr: order_total
+    measures:
+      - name: revenue_with_tax
+        description: The revenue generated for each order including tax. Revenue with tax is calculated as a sum of total order amount associated with each order
+        agg: sum
+        expr: order_total
+      - name: total_tax
+        description: The part of revenue that's actually sales tax
+        agg: sum
+        expr: tax_paid

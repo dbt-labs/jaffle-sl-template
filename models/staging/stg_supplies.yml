@@ -40,3 +40,8 @@ semantic_models:
         type: categorical
       - name: is_perishable_supply
         type: categorical
+    measures:
+      - name: total_cost
+        description: The cost for each item
+        agg: sum
+        expr: supply_cost

@@ -27,8 +27,3 @@ semantic_models:
       - name: product
         type: foreign
         expr: product_id
-    measures:
-      - name: revenue
-        description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
-        agg: sum
-        expr: product_price
