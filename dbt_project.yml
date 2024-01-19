@@ -38,7 +38,8 @@ vars:
 models:
   jaffle_shop:
     staging:
-      +materialized: view
+      # update to table so it can take in primary key/foreign key
+      +materialized: table
       +persist_docs:
         relation: true
         columns: true
