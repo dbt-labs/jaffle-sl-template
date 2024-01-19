@@ -13,7 +13,7 @@ models:
 semantic_models:
   - name: stg_order_items
     defaults:
-      agg_time_dimension: ordered_at
+      agg_time_dimension: 
     description: |
       Items contatined in each order. The grain of the table is one row per order item.
     model: ref('stg_order_items')

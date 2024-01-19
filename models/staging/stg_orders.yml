@@ -4,6 +4,8 @@ models:
     columns:
       - name: order_id
         description: The unique key for each order.
+        constraints:
+          - type: primary_key        
         tests:
           - not_null
           - unique
@@ -20,6 +22,8 @@ models:
 semantic_models:
   #The name of the semantic model.
   - name: stg_orders
+    defaults:
+      agg_time_dimension: ordered_at
     description: |
       Orders fact table. The grain of the table is one row per order.
     #The name of the dbt model and schema
