@@ -14,7 +14,9 @@ renamed as (
         id as customer_id,
 
         ---------- text
-        name as customer_name
+        name as customer_name,
+        gender as customer_gender,
+        birthday as customer_birthday
 
     from source
 
