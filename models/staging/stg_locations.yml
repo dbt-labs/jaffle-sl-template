@@ -32,3 +32,8 @@ semantic_models:
         description: Average tax rate.
         expr: tax_rate
         agg: average
+      - name: total_employee
+        description: number of employee
+        expr: cnt_employee
+        agg: sum
+
