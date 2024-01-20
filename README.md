@@ -33,6 +33,10 @@ dbt deps
 dbt seed
 ```
 
+To allow rebuild the whole project
+```
+dbt seed --full-refresh
+```
 ## Run your dbt project, and query metrics
 
 ```shell
