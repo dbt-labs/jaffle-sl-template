@@ -9,6 +9,10 @@ models:
           - unique
       - name: customer_name
         description: Customers' full name.
+      - name: customer_gender
+        description: Customers' gender.
+      - name: customer_birthday
+        description: Customers' birthday.
       - name: count_lifetime_orders
         description: Total number of orders a customer has ever placed.
       - name: first_ordered_at
@@ -39,6 +43,12 @@ semantic_models:
     dimensions:
       - name: customer_name
         type: categorical
+      - name: customer_gender
+        type: categorical
+      - name: customer_birthday
+        type: time
+        type_params:
+          time_granularity: day
       - name: customer_type
         type: categorical
       - name: first_ordered_at
