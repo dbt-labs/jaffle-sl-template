@@ -78,6 +78,9 @@ semantic_models:
       - name: order_count
         expr: 1
         agg: sum
+      - name: avg_order_item_count
+        expr: count_order_items
+        agg: average
       - name: tax_paid
         description: The total tax paid on each order.
         agg: sum
@@ -92,6 +95,9 @@ semantic_models:
       - name: order_cost
         description: The cost for each order item. Cost is calculated as a sum of the supply cost for each order item.
         agg: sum
+      - name: avg_order_total
+        description: The average order amount including taxes.
+        agg: average
 
 metrics:
   - name: order_total
@@ -100,6 +106,26 @@ metrics:
     label: Order Total
     type_params:
       measure: order_total
+  - name: order_total_rank
+    description: Rank of total order amonunt. Includes tax + revenue.
+    type: derived
+    label: Order Total Rank
+    type_params:
+      expr: rank() over (order by order_total desc)
+      metrics: 
+        - name: order_total
+  - name: avg_order_item_count
+    description: Avg count of order items
+    type: simple
+    label: Avg Order Item Count
+    type_params:
+      measure: avg_order_item_count
+  - name: avg_order_total
+    description: Avg of total order amonunt. Includes tax + revenue.
+    type: simple
+    label: Avg Order Total
+    type_params:
+      measure: avg_order_total
   - name: large_order
     description: "Count of orders with order total over 20."
     type: simple

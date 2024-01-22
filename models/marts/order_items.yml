@@ -30,6 +30,10 @@ semantic_models:
         description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
         agg: sum
         expr: product_price
+      - name: order_item_cnt
+        description: Number of order items under each order
+        agg: sum
+        expr: 1
       - name: food_revenue
         description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
         agg: sum
@@ -51,6 +55,12 @@ metrics:
     label: Revenue
     type_params:
       measure: revenue
+  - name: order_item_cnt
+    description: Number of order items under each order
+    type: simple
+    label: Order Item Count
+    type_params:
+      measure: order_item_cnt
   - name: order_cost
     description: Sum of cost for each order item.
     label: Order Cost
@@ -110,3 +120,12 @@ metrics:
     type: cumulative
     type_params:
       measure: revenue
+  # Unsure how to make it work...
+  # - name: revenue_mavg_7d
+  #   description: "7 days moving average revenue"
+  #   type: cumulative
+  #   type_params:
+  #     expr: 
+  #     metrics:
+  #       - name: revenue
+  #       - window: 7 days

@@ -20,8 +20,9 @@ order_items_summary as (
 
         sum(supply_cost) as order_cost,
         sum(is_food_item) as count_food_items,
-        sum(is_drink_item) as count_drink_items
-
+        sum(is_drink_item) as count_drink_items,
+        count(order_item_id) as count_order_items
+ 
 
     from order_items_table as order_items
 

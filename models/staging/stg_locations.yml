@@ -37,3 +37,10 @@ semantic_models:
         expr: cnt_employee
         agg: sum
 
+metrics:
+  - name: total_employee
+    description: Number of employee.
+    type: simple
+    label: Total employee
+    type_params:
+      measure: total_employee

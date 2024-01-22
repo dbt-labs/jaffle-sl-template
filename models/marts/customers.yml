@@ -67,8 +67,12 @@ semantic_models:
         description: Customer lifetime spend before taxes.
         agg: sum
       - name: lifetime_spend
-        agg: sum
         description: Gross customer lifetime spend inclusive of taxes.
+        agg: sum
+      - name: avg_customer_age
+        description: Average customer age
+        agg: average
+        expr: DATEDIFF(YEAR, customer_birthday, CURRENT_DATE)
 
 metrics:
   # Simple metrics
@@ -86,6 +90,12 @@ metrics:
       measure: customers_with_orders
     filter: |
       {{ Dimension('customer__customer_type') }}  = 'new'
+  - name: avg_customer_age
+    type: simple
+    label: Average customers age
+    type_params:
+      measure: avg_customer_age
+
 
 saved_queries:
   - name: new_customer_orders
