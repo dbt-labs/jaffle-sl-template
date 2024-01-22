@@ -71,6 +71,9 @@ semantic_models:
         type: categorical
       - name: is_drink_order
         type: categorical
+      - name: is_large_order
+        type: categorical
+        expr: order_total >= 20
     measures:
       - name: order_total
         description: The total amount for each order including taxes.

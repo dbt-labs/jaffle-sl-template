@@ -120,6 +120,13 @@ metrics:
     type: cumulative
     type_params:
       measure: revenue
+  - name: cumulative_revenue_rolling_7d
+    description: The cumulative revenue for all orders for rolling 7 days.
+    label: Cumulative Revenue (Rolling 7 days)
+    type: cumulative
+    type_params:
+      measure: revenue
+      window: 7 days
   # Unsure how to make it work...
   # - name: revenue_mavg_7d
   #   description: "7 days moving average revenue"
