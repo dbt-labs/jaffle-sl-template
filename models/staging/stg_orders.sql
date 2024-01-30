@@ -22,7 +22,7 @@ renamed as (
         (tax_paid / 100.0) as tax_paid,
 
         ---------- timestamps
-        dateadd(day, datediff(day,max(ordered_at) over (partition by 1)) - 1, current_date()) as ordered_at
+        dateadd(day, datediff(day,max(ordered_at) over (partition by 1), current_date()) - 1, ordered_at) as ordered_at
 
     from source
 
