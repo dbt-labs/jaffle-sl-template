@@ -35,7 +35,6 @@ metrics:
     description: Sum of total order amonunt. Includes tax + revenue.
     label: Conversion Rate
     type: ratio
-    type_params: 
-      fill_nulls_with: 0
-      numerator: orders
+    type_params:
+      numerator: order_total
       denominator: sessions
