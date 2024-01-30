@@ -22,7 +22,7 @@ renamed as (
         (tax_paid / 100.0) as tax_paid,
 
         ---------- timestamps
-        {{dbt.date_trunc('day','ordered_at')}} as ordered_at
+        date_add(day, date_diff(day,max(ordered_at) over (partition by 1) - 1, current_date()) as ordered_at
 
     from source
 
