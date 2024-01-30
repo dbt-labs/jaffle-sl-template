@@ -110,3 +110,18 @@ metrics:
     type: cumulative
     type_params:
       measure: revenue
+
+saved_queries:
+  - name: order_metrics
+    description: Relevant order metrics
+    query_params:
+      metrics:
+        - orders
+        - large_order
+        - food_orders
+        - order_total
+      group_by:
+        - order_id
+        - customer__customer_name
+        - customer__customer_type
+        - customer__first_ordered_at
