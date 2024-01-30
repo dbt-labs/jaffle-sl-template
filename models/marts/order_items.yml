@@ -121,7 +121,8 @@ saved_queries:
         - food_orders
         - order_total
       group_by:
-        - order_id
-        - customer__customer_name
-        - customer__customer_type
-        - customer__first_ordered_at
+        - Entity('order_id')
+        - TimeDimension('metric_time')
+        - Dimension('customer__customer_name')
+        - Dimension('customer__customer_type')
+        - TimeDimension('customer__first_ordered_at')
