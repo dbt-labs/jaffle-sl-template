@@ -122,7 +122,7 @@ saved_queries:
         - order_total
       group_by:
         - Entity('order_id')
-        - TimeDimension('metric_time')
+        - TimeDimension('metric_time', 'day')
         - Dimension('customer__customer_name')
         - Dimension('customer__customer_type')
-        - TimeDimension('customer__first_ordered_at')
+        - TimeDimension('customer__first_ordered_at', 'day')
