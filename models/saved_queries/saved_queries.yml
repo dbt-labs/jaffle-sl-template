@@ -10,6 +10,24 @@ saved_queries:
       where:
         - "{{ Dimension('customer__count_lifetime_orders') }} > 100"
     exports:
+      - name: high_value_customers_table
+        config:
+          export_as: table
       - name: high_value_customers
+        config:
+          export_as: view
+          alias: high_value_customers_view
+  - name: new_customers
+    description: Customers that have placed their first order recently
+    query_params:
+      metrics:
+        - orders
+      group_by:
+        - Dimension('customer__customer_name')
+        - Dimension('customer__first_ordered_at')
+      where:
+        - "{{ TimeDimension('customer__first_ordered_at', 'day') }} > '2017-01-01'"
+    exports:
+      - name: new_customers
         config:
           export_as: table
