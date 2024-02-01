@@ -126,3 +126,7 @@ saved_queries:
         - Dimension('customer__customer_name')
         - Dimension('customer__customer_type')
         - TimeDimension('customer__first_ordered_at', 'day')
+    exports:
+      - name: order_data_key_metrics
+        config:
+          export_as: table
