@@ -95,5 +95,5 @@ saved_queries:
       - name: new_customer_orders_view
         config:
           export_as: view
-          alias: new_customer_orders_export_alias
+          alias: semantic_layer_exports
           schema: new_customer_orders_export_schema
