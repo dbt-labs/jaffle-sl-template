@@ -92,3 +92,8 @@ saved_queries:
       - name: new_customer_orders
         config:
           export_as: table
+      - name: new_customer_orders_view
+        config:
+          export_as: view
+          alias: new_customer_orders_export_alias
+          schema: new_customer_orders_export_schema

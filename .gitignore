@@ -17,3 +17,4 @@ semantic_manifest
 dbt-core/
 cloud-env
 core-env
+core-env-2
