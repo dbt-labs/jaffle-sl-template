@@ -81,7 +81,7 @@ metrics:
 
   #Derived Metrics
   - name: revenue_growth_mom
-    description: "Percentage growth of revenue compared to 1 month ago. Excluded tax"
+    description: Percentage growth of revenue compared to 1 month ago. Excluded tax
     type: derived
     label: Revenue Growth % M/M
     type_params:
@@ -110,3 +110,9 @@ metrics:
     type: cumulative
     type_params:
       measure: revenue
+  - name: sold_drinks
+    description: This is the revenue coming from sold drinks.
+    type: simple
+    label: Sold drinks
+    type_params:
+      measure: drink_revenue
