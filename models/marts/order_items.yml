@@ -50,7 +50,9 @@ metrics:
     type: simple
     label: Revenue
     type_params:
-      measure: revenue
+      measure: 
+        name: revenue
+        fill_nulls_with: 0
   - name: order_cost
     description: Sum of cost for each order item.
     label: Order Cost
@@ -124,6 +126,7 @@ saved_queries:
         - Entity('order_id')
         - TimeDimension('metric_time', 'day')
         - Dimension('customer__customer_name')
+        - Dimension('order_id__customer_name')
         - Dimension('customer__customer_type')
         - TimeDimension('customer__first_ordered_at', 'day')
     exports:
