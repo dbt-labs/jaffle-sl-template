@@ -1,0 +1,27 @@
+#mql_id,first_contact_date,landing_page_id,origin
+semantic_models:
+  - name: olist_mqls
+    description: "Table showing all seller contacts for an ecommerce marketplace"
+    model: ref('olist_marketing_qualified_leads')
+    defaults:
+      agg_time_dimension: ds
+    entities:
+      - name: mql
+        type: primary
+        expr: mql_id
+      - name: landing_page
+        type: foreign
+        expr: landing_page_id
+    dimensions:
+      - name: ds
+        expr: first_contact_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: origin
+        type: categorical
+    measures:
+      - name: mqls
+        agg: count
+        expr: mql_id
+        create_metric: true
