@@ -105,6 +105,12 @@ metrics:
     label: Order Total
     type_params:
       measure: order_total
+  - name: order_total_cli_bug
+    description: Sum of total order amonunt. Includes tax + revenue.
+    type: simple
+    label: Order Total bug
+    type_params:
+      measure: order_total
   - name: large_order
     description: "Count of orders with order total over 20."
     type: simple
