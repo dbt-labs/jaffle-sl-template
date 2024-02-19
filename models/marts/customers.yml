@@ -23,7 +23,7 @@ models:
         description: Options are 'new' or 'returning', indicating if a customer has ordered more than once or has only placed their first order to date.
         tests:
           - accepted_values:
-              values: ["new", "returning"]
+              values: [new, returning]
 
 semantic_models:
   - name: customers
@@ -63,7 +63,7 @@ semantic_models:
 metrics:
   # Simple metrics
   - name: customers_with_orders
-    description: "Distict count of customers placing orders"
+    description: Distict count of customers placing orders
     type: simple
     label: Customers w/ Orders
     type_params:
@@ -77,6 +77,12 @@ metrics:
     filter: |
       {{ Dimension('customer__customer_type') }}  = 'new'
 
+  - name: new_metric
+    description: ''
+    type: simple
+    label: New metric
+    type_params:
+      measure: count_lifetime_orders
 saved_queries:
   - name: new_customer_orders
     description: New customer orders by name and time
