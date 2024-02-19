@@ -1,44 +1,27 @@
-name: CI
+name: DBT Cloud CI/CD
 
-on: pull_request
+on:
+  push:
+    branches:
+      - 'main'
 
 jobs:
-  dbt-build:
-    runs-on: ubuntu-22.04
+  run_dbt_cloud_job:
+    name: Run dbt Cloud Job
+    runs-on: ubuntu-latest
+
+    env:
+      DBT_ACCOUNT_ID: 12842
+      DBT_PROJECT_ID: 331335
+      DBT_PR_JOB_ID:  490400
+      DBT_API_KEY: ${{ secrets.DBT_API_KEY }}
+      DBT_JOB_CAUSE: 'GitHub Pipeline CI Job'
+      DBT_JOB_BRANCH: ${{ github.ref_name }}
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: "actions/checkout@v3"
+      - uses: "actions/setup-python@v4"
         with:
-          python-version: "3.10"
-          cache: 'pip'
-      - name: Install dependencies
-        run: |
-          python -m pip install -r requirements.txt
-      - name: Set up Snowflake profile
-        env:
-          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
-          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-        run: |
-          mkdir -p ~/.dbt/
-          echo "snowflake:" >> ~/.dbt/profiles.yml
-          echo " target: dev" >> ~/.dbt/profiles.yml
-          echo " outputs:" >> ~/.dbt/profiles.yml
-          echo "   dev:" >> ~/.dbt/profiles.yml
-          echo "     type: snowflake" >> ~/.dbt/profiles.yml
-          echo "     account: $SNOWFLAKE_ACCOUNT" >> ~/.dbt/profiles.yml
-          echo "     user: $SNOWFLAKE_USER" >> ~/.dbt/profiles.yml
-          echo "     password: $SNOWFLAKE_PASSWORD" >> ~/.dbt/profiles.yml
-          echo "     role: $SNOWFLAKE_ROLE" >> ~/.dbt/profiles.yml
-          echo "     database: $SNOWFLAKE_DATABASE" >> ~/.dbt/profiles.yml
-          echo "     warehouse: $SNOWFLAKE_WAREHOUSE" >> ~/.dbt/profiles.yml
-          echo "     schema: dbt_metrics_ci" >> ~/.dbt/profiles.yml
-      - name: Install dbt Dependencies
-        run: dbt deps
-      - name: Instantiate Jaffle Shop data
-        run: dbt seed
-      - name: dbt Build
-        run: dbt build
+          python-version: "3.9"
+      - name: Run dbt Cloud job
+        run: "python python/run_and_monitor_dbt_job.py"
