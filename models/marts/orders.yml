@@ -85,7 +85,6 @@ semantic_models:
     #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.  
     dimensions:
       - name: ordered_at
-        expr: date_trunc('day', ordered_at)
         type: time
         type_params:
           time_granularity: day 

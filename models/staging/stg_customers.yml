@@ -25,11 +25,9 @@ semantic_models:
         type: categorical
       - name: first_ordered_at
         type: time
-        expr: date_trunc('day', first_ordered_at)
         type_params:
           time_granularity: day
       - name: last_ordered_at
         type: time
-        expr: date_trunc('day', last_ordered_at)
         type_params:
           time_granularity: day
