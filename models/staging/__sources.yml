@@ -32,3 +32,16 @@ sources:
         description: One record per SKU for items sold in stores
       - name: raw_supplies
         description: One record per supply per SKU of items sold in stores
+  - name: conversion_sources
+    schema: '{{ target.schema }}'
+    description: Source data for conversion metrics
+    tables:
+      - name: olist_closed_deals_dataset
+      - name: home_page_table
+      - name: olist_customers_dataset
+      - name: olist_geolocation_dataset
+      - name: olist_marketing_qualified_leads_dataset
+      - name: ollist_order_items_dataset
+      - name: ollist_order_payments_dataset
+      - name: olist_orders_dataset
+      - name: olist_sellers_dataset

@@ -1,3 +1,3 @@
 select
     *
-from olist_sellers_dataset
+from  {{source('conversion_sources','olist_sellers_dataset')}}

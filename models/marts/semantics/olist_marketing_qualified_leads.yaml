@@ -24,4 +24,12 @@ semantic_models:
       - name: mqls
         agg: count
         expr: mql_id
-        create_metric: true
+metrics:
+  - name: mqls  
+    label: MQls
+    type: simple
+    type_params:
+      measure:
+        name: mqls
+        fill_nulls_with: 0
+        join_to_timespine: true

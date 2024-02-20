@@ -127,6 +127,7 @@ metrics:
       measure: 
         name: order_count
         fill_nulls_with: 0
+        join_to_timespine: true
   - name: twice_orders_fill_nulls_with_0
     description: Example derived metric.
     label: Twice Orders
