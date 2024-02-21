@@ -83,6 +83,12 @@ metrics:
     label: New metric
     type_params:
       measure: count_lifetime_orders
+  - name: new_superset_metric
+    description: ''
+    type: simple
+    label: new_superset_metric
+    type_params:
+      measure: count_lifetime_orders
 saved_queries:
   - name: new_customer_orders
     description: New customer orders by name and time
