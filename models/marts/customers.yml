@@ -45,6 +45,7 @@ semantic_models:
         type: time
         type_params:
           time_granularity: day
+          Test change
       - name: last_ordered_at
         type: time
         type_params:
