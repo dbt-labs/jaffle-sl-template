@@ -31,7 +31,7 @@ semantic_models:
         type: categorical
     measures:
       - name: sellers
-        agg: count
+        agg: count_distinct
         expr: seller_id
         create_metric: true
 metrics: 
