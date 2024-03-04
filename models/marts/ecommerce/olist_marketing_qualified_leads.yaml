@@ -22,7 +22,7 @@ semantic_models:
         type: categorical
     measures:
       - name: mqls
-        agg: count
+        agg: count_distinct
         expr: mql_id
 metrics:
   - name: mqls  
