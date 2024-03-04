@@ -42,3 +42,5 @@ jobs:
         run: dbt seed
       - name: dbt Build
         run: dbt build
+      - name: Validate Semantic Models
+        run: mf validate-configs
