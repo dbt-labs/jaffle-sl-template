@@ -1,6 +1,9 @@
 saved_queries:
   - name: high_value_customers
     description: Customers that have placed a lot of orders
+    config:
+      cache:
+        enabled: True
     query_params:
       metrics:
         - orders
