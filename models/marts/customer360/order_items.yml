@@ -146,3 +146,6 @@ saved_queries:
       - name: weekly_revenue
         config:
           export_as: table
+    config:
+      cache:
+        enabled: true
