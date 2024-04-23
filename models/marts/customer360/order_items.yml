@@ -104,6 +104,23 @@ metrics:
         - name: revenue
         - name: order_cost
           alias: cost
+  - name: revenue_drinks_growth_mom
+    description: Percentage growth of revenue coming from drinks compared to 1 month ago. Excluded tax
+    type: derived
+    label: Drinks Revenue Growth % M/M
+    type_params:
+      expr: (revenue_is_drink_1 - revenue_is_drink_1_1_month_ago)*100 / revenue_is_drink_1_1_month_ago
+      metrics:
+        - name: revenue
+          alias: revenue_is_drink_1
+          filter: |
+            {{Dimension('order_item__is_drink_item')}} = 1
+        - name: revenue
+          alias: revenue_is_drink_1_1_month_ago
+          offset_window: 1 month
+          filter: |
+            {{Dimension('order_item__is_drink_item')}} = 1
+          
 
   #Cumulative Metrics
   - name: cumulative_revenue
