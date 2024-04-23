@@ -92,6 +92,7 @@ saved_queries:
       - name: new_customer_orders
         config:
           export_as: table
+          schema: dbt_qmalcolm
       - name: new_customer_orders_view
         config:
           export_as: view
