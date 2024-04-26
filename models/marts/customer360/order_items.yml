@@ -43,9 +43,21 @@ semantic_models:
         agg: median
         expr: product_price
 
+groups:
+  - name: finance
+    owner:
+      # 'name' or 'email' is required; additional properties allowed
+      email: finance@jaffleshop.com
+      slack: finance-data
+      github: finance-data-team
+
+
+
 metrics:
   # Simple metrics
   - name: revenue
+    config:
+      group: finance
     description: Sum of the product revenue for each order item. Excludes tax.
     type: simple
     label: Revenue
