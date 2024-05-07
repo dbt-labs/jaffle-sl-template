@@ -1,0 +1,43 @@
+semantic_models:
+  - name: fct_orders_caching
+    defaults:
+      agg_time_dimension: date
+    description: |
+      Orders Table for Caching Demo
+    model: ref('fct_orders_caching')
+    entities:
+      - name: order
+        expr: order_id
+        type: primary
+    dimensions:
+      - name: quantity
+        type: categorical
+      - name: date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: primary_city
+        type: categorical
+    measures:
+      - name: count_orders
+        description: Total count of orders per customer.
+        expr: order_id
+        agg: count_distinct
+        create_metric: true
+
+saved_queries:
+  - name: orders_by_city
+    description: New customer orders by name and time
+    query_params:
+      metrics:
+        - count_orders
+      group_by:
+        - Dimension('order__primary_city')
+        - TimeDimension('metric_time', 'day')
+    exports:
+      - name: orders_by_city
+        config:
+          export_as: table
+    config:
+      cache:
+        enabled: true
