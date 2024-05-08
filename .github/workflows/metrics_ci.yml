@@ -1,0 +1,67 @@
+name: Metrics Validation
+
+on:
+  push:
+    branches:
+      - main  # Change this to the branch you want to trigger the action on
+  pull_request:
+    branches:
+      - main  # Change this to the branch you want to trigger the action on
+
+jobs:
+  setup-dbt-cloud-profile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9.16'
+
+      - name: Install dbt
+        run: |
+          pip install dbt
+
+      - name: Set up dbt Cloud profile
+        run: |
+          mkdir -p ~/.dbt
+          echo 'outputs:' > ~/.dbt/profiles.yml
+          echo '  dev:' >> ~/.dbt/profiles.yml
+          echo '    account: kw27752' >> ~/.dbt/profiles.yml
+          echo '    database: ANALYTICS' >> ~/.dbt/profiles.yml
+          echo '    password: ${{ secrets.DBT_CLOUD_TOKEN_NAME }}' >> ~/.dbt/profiles.yml
+          echo '    role: TRANSFORMER' >> ~/.dbt/profiles.yml
+          echo '    schema: dbt_gh_ci' >> ~/.dbt/profiles.yml
+          echo '    threads: 8' >> ~/.dbt/profiles.yml
+          echo '    type: snowflake' >> ~/.dbt/profiles.yml
+          echo '    user: DBT_SEMANTIC_LAYER_TEST' >> ~/.dbt/profiles.yml
+          echo '    warehouse: ANALYTICS' >> ~/.dbt/profiles.yml
+          echo 'target: dev' >> ~/.dbt/profiles.yml
+
+      - name: Set up dbt Cloud config
+        run: |
+          mkdir -p ~/.dbt
+          echo 'version: "1"' > ~/.dbt/dbt_cloud.yml
+          echo 'context:' >> ~/.dbt/dbt_cloud.yml
+          echo '  active-host: "cloud.getdbt.com"' >> ~/.dbt/dbt_cloud.yml
+          echo '  active-project: "263759"' >> ~/.dbt/dbt_cloud.yml
+          echo 'projects:' >> ~/.dbt/dbt_cloud.yml
+          echo '  - project-name: "Semantic Layer Demo"' >> ~/.dbt/dbt_cloud.yml
+          echo '    project-id: "263759"' >> ~/.dbt/dbt_cloud.yml
+          echo '    account-name: "Community DX Sandbox"' >> ~/.dbt/dbt_cloud.yml
+          echo '    account-id: "78663"' >> ~/.dbt/dbt_cloud.yml
+          echo '    account-host: "cloud.getdbt.com"' >> ~/.dbt/dbt_cloud.yml
+          echo '    token-name: ${{ secrets.DBT_CLOUD_TOKEN_NAME }}' >> ~/.dbt/dbt_cloud.yml
+          echo '    token-value: ${{ secrets.DBT_CLOUD_TOKEN_VALUE }}' >> ~/.dbt/dbt_cloud.yml
+
+      - name: Verify dbt Cloud profile
+        run: |
+          cat ~/.dbt/profiles.yml
+          cat ~/.dbt/dbt_cloud.yml
+          dbt debug --profiles-dir ~/.dbt
+      
+      - name: Run Modified Models
+        run: |
+          dbt run -s state:modified
