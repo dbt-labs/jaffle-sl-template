@@ -60,7 +60,6 @@ jobs:
         run: |
           cat ~/.dbt/profiles.yml
           cat ~/.dbt/dbt_cloud.yml
-          dbt debug --profiles-dir ~/.dbt
       
       - name: Run Modified Models
         run: |
