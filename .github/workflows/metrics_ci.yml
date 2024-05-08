@@ -29,17 +29,18 @@ jobs:
       - name: Set up dbt Cloud profile
         run: |
           mkdir -p ~/.dbt
-          echo 'outputs:' > ~/.dbt/profiles.yml
-          echo '  dev:' >> ~/.dbt/profiles.yml
-          echo '    account: kw27752' >> ~/.dbt/profiles.yml
-          echo '    database: ANALYTICS' >> ~/.dbt/profiles.yml
-          echo '    password: ${{ secrets.SNOWFLAKE_PASSWORD }}' >> ~/.dbt/profiles.yml
-          echo '    role: TRANSFORMER' >> ~/.dbt/profiles.yml
-          echo '    schema: dbt_gh_ci' >> ~/.dbt/profiles.yml
-          echo '    threads: 8' >> ~/.dbt/profiles.yml
-          echo '    type: snowflake' >> ~/.dbt/profiles.yml
-          echo '    user: DBT_SEMANTIC_LAYER_TEST' >> ~/.dbt/profiles.yml
-          echo '    warehouse: ANALYTICS' >> ~/.dbt/profiles.yml
+          echo 'snowflake:' > ~/.dbt/profiles.yml
+          echo '  outputs:' > ~/.dbt/profiles.yml
+          echo '    dev:' >> ~/.dbt/profiles.yml
+          echo '      account: kw27752' >> ~/.dbt/profiles.yml
+          echo '      database: ANALYTICS' >> ~/.dbt/profiles.yml
+          echo '      password: ${{ secrets.SNOWFLAKE_PASSWORD }}' >> ~/.dbt/profiles.yml
+          echo '      role: TRANSFORMER' >> ~/.dbt/profiles.yml
+          echo '      schema: dbt_gh_ci' >> ~/.dbt/profiles.yml
+          echo '      threads: 8' >> ~/.dbt/profiles.yml
+          echo '      type: snowflake' >> ~/.dbt/profiles.yml
+          echo '      user: DBT_SEMANTIC_LAYER_TEST' >> ~/.dbt/profiles.yml
+          echo '      warehouse: ANALYTICS' >> ~/.dbt/profiles.yml
           echo 'target: dev' >> ~/.dbt/profiles.yml
 
       - name: Set up dbt Cloud config
