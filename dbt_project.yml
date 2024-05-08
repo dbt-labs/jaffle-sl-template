@@ -41,9 +41,3 @@ models:
       +materialized: view
     marts:
       +materialized: table
-
-saved-queries:
-  +cache:
-    enabled: true
-  exports:
-    +export_as: table
