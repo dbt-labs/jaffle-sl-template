@@ -41,3 +41,11 @@ models:
       +materialized: view
     marts:
       +materialized: table
+
+saved-queries:
+  jaffle_shop:
+    models:
+      marts:
+        customer360:
+          +cache:
+            enabled:true

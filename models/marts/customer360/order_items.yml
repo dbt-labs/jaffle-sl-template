@@ -144,9 +144,6 @@ saved_queries:
       - name: order_data_key_metrics
         config:
           export_as: table
-    config:
-      cache:
-        enabled: true
   - name: weekly_revenue
     description: Weekly revenue
     query_params:
@@ -158,6 +155,3 @@ saved_queries:
       - name: weekly_revenue
         config:
           export_as: table
-    config:
-      cache:
-        enabled: true
