@@ -31,7 +31,7 @@ jobs:
           echo '  dev:' >> ~/.dbt/profiles.yml
           echo '    account: kw27752' >> ~/.dbt/profiles.yml
           echo '    database: ANALYTICS' >> ~/.dbt/profiles.yml
-          echo '    password: ${{ secrets.DBT_CLOUD_TOKEN_NAME }}' >> ~/.dbt/profiles.yml
+          echo '    password: ${{ secrets.SNOWFLAKE_PASSWORD }}' >> ~/.dbt/profiles.yml
           echo '    role: TRANSFORMER' >> ~/.dbt/profiles.yml
           echo '    schema: dbt_gh_ci' >> ~/.dbt/profiles.yml
           echo '    threads: 8' >> ~/.dbt/profiles.yml
@@ -53,8 +53,8 @@ jobs:
           echo '    account-name: "Community DX Sandbox"' >> ~/.dbt/dbt_cloud.yml
           echo '    account-id: "78663"' >> ~/.dbt/dbt_cloud.yml
           echo '    account-host: "cloud.getdbt.com"' >> ~/.dbt/dbt_cloud.yml
-          echo '    token-name: ${{ secrets.DBT_CLOUD_TOKEN_NAME }}' >> ~/.dbt/dbt_cloud.yml
-          echo '    token-value: ${{ secrets.DBT_CLOUD_TOKEN_VALUE }}' >> ~/.dbt/dbt_cloud.yml
+          echo '    token-name: ${{ secrets.CLOUD_CLI_TOKEN_NAME }}' >> ~/.dbt/dbt_cloud.yml
+          echo '    token-value: ${{ secrets.CLOUD_CLI_TOKEN_VALUE }}' >> ~/.dbt/dbt_cloud.yml
 
       - name: Verify dbt Cloud profile
         run: |
