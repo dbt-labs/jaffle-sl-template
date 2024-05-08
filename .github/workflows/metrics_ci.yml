@@ -22,6 +22,8 @@ jobs:
 
       - name: Install dbt
         run: |
+          python -m venv cloud-env
+          source cloud-env/bin/activate
           pip install dbt
 
       - name: Set up dbt Cloud profile
@@ -68,3 +70,13 @@ jobs:
       - name: Clone Non-Modified Models
         run: |
           dbt clone --exclude state:modified
+          
+      - name: Run Metricflow Validations
+        run: |
+          deactivate
+          python -m venv core-env
+          source core-env/bin/activate
+          pip install dbt-core
+          pip install dbt-snowflake
+          pip install dbt-metricflow
+          mf validate-configs
