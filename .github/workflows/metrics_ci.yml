@@ -67,4 +67,4 @@ jobs:
       
       - name: Clone Non-Modified Models
         run: |
-          dbt clone --exlude state:modified
+          dbt clone --exclude state:modified
