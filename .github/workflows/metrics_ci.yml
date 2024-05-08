@@ -65,10 +65,12 @@ jobs:
       
       - name: Run Modified Models
         run: |
+          source cloud-env/bin/activate
           dbt run -s state:modified
       
       - name: Clone Non-Modified Models
         run: |
+          source cloud-env/bin/activate
           dbt clone --exclude state:modified
           
       - name: Run Metricflow Validations
