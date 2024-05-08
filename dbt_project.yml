@@ -45,3 +45,5 @@ models:
 saved-queries:
   +cache:
     enabled: true
+  exports:
+    +export_as: table
