@@ -64,3 +64,7 @@ jobs:
       - name: Run Modified Models
         run: |
           dbt run -s state:modified
+      
+      - name: Clone Non-Modified Models
+        run: |
+          dbt clone --exlude state:modified
