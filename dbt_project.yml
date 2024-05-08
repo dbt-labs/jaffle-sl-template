@@ -43,9 +43,5 @@ models:
       +materialized: table
 
 saved-queries:
-  jaffle_shop:
-    models:
-      marts:
-        customer360:
-          +cache:
-            enabled:true
+  +cache:
+    enabled: true
