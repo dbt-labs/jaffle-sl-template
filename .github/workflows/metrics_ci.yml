@@ -41,7 +41,7 @@ jobs:
           echo '      type: snowflake' >> ~/.dbt/profiles.yml
           echo '      user: DBT_SEMANTIC_LAYER_TEST' >> ~/.dbt/profiles.yml
           echo '      warehouse: ANALYTICS' >> ~/.dbt/profiles.yml
-          echo 'target: dev' >> ~/.dbt/profiles.yml
+          echo '  target: dev' >> ~/.dbt/profiles.yml
 
       - name: Set up dbt Cloud config
         run: |
