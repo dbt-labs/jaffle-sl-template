@@ -46,7 +46,7 @@ jobs:
           echo "     role: $SNOWFLAKE_ROLE" >> ~/.dbt/profiles.yml
           echo "     database: $SNOWFLAKE_DATABASE" >> ~/.dbt/profiles.yml
           echo "     warehouse: $SNOWFLAKE_WAREHOUSE" >> ~/.dbt/profiles.yml
-          echo "     schema: dbt_metrics_ci" >> ~/.dbt/profiles.yml
+          echo "     schema: big_test_energy" >> ~/.dbt/profiles.yml
      
       - name: Set up dbt Cloud config
         run: |
