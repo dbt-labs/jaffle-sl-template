@@ -47,6 +47,22 @@ jobs:
           echo "     database: $SNOWFLAKE_DATABASE" >> ~/.dbt/profiles.yml
           echo "     warehouse: $SNOWFLAKE_WAREHOUSE" >> ~/.dbt/profiles.yml
           echo "     schema: dbt_metrics_ci" >> ~/.dbt/profiles.yml
+     
+      - name: Set up dbt Cloud config
+        run: |
+          mkdir -p ~/.dbt
+          echo 'version: "1"' > ~/.dbt/dbt_cloud.yml
+          echo 'context:' >> ~/.dbt/dbt_cloud.yml
+          echo '  active-host: "cloud.getdbt.com"' >> ~/.dbt/dbt_cloud.yml
+          echo '  active-project: "263759"' >> ~/.dbt/dbt_cloud.yml
+          echo 'projects:' >> ~/.dbt/dbt_cloud.yml
+          echo '  - project-name: "Semantic Layer Demo"' >> ~/.dbt/dbt_cloud.yml
+          echo '    project-id: "263759"' >> ~/.dbt/dbt_cloud.yml
+          echo '    account-name: "Community DX Sandbox"' >> ~/.dbt/dbt_cloud.yml
+          echo '    account-id: "78663"' >> ~/.dbt/dbt_cloud.yml
+          echo '    account-host: "cloud.getdbt.com"' >> ~/.dbt/dbt_cloud.yml
+          echo '    token-name: ${{ secrets.CLOUD_CLI_TOKEN_NAME }}' >> ~/.dbt/dbt_cloud.yml
+          echo '    token-value: ${{ secrets.CLOUD_CLI_TOKEN_VALUE }}' >> ~/.dbt/dbt_cloud.yml
 
       - name: Verify dbt Cloud profile
         run: |
