@@ -86,5 +86,6 @@ jobs:
           pip install dbt-core
           pip install dbt-snowflake
           pip install dbt-metricflow
+          dbt deps
           dbt parse
           mf validate-configs
