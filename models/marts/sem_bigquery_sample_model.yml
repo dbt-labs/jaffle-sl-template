@@ -1,0 +1,23 @@
+semantic_models:
+  - name: bigquery_sample_model
+    description: |
+      Sample bigquery model containing structs
+    model: ref('bigquery_sample_model')
+    defaults:
+      agg_time_dimension: date_day
+    entities:
+      - name: id
+        type: primary
+    dimensions:
+      - name: some_numbers
+        type: categorical
+        expr: some_numbers[0]
+      - name: date_day  
+        type: time
+        type_params:
+          time_granularity: day
+    measures:
+      - name: test_metric
+        agg: sum
+        expr: id
+        create_metric: true

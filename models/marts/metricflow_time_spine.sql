@@ -12,7 +12,7 @@ days as (
 cast_to_date as (
 
     select 
-        cast(date_day as date) as date_day
+        cast(date_day as timestamp) as date_day
     
     from days
 

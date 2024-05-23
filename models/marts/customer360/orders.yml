@@ -63,7 +63,7 @@ semantic_models:
         expr: ordered_at
         type: time
         type_params:
-          time_granularity: day
+          time_granularity: month
       - name: ordered_at_test
         expr: ordered_at
         type: time
@@ -83,6 +83,9 @@ semantic_models:
       - name: order_count
         expr: 1
         agg: sum
+        non_additive_dimension: 
+          name: ordered_at
+          window_choice: max
       - name: tax_paid
         description: The total tax paid on each order.
         agg: sum
@@ -111,8 +114,6 @@ metrics:
     label: "Large Orders"
     type_params:
       measure: order_count
-    filter: |
-      {{ Dimension('order_id__order_total_dim') }} >= 20
   - name: orders
     description: Count of orders.
     label: Orders
@@ -128,7 +129,7 @@ metrics:
         name: order_count
         fill_nulls_with: 0
         join_to_timespine: true
-  - name: twice_orders_fill_nulls_with_0
+  - name: twice_orders_fill_nulls_with_0_test
     description: Example derived metric.
     label: Twice Orders
     type: derived
@@ -142,12 +143,17 @@ metrics:
     type: simple
     type_params:
       measure: order_count
-    filter: |
-      {{ Dimension('order_id__is_food_order') }} = true
   - name: orders_last_7_days
     description: Count of orders.
     label: orders last 7 days
     type: cumulative
     type_params:
       measure: order_count
-      window: 7 days
+  - name: orders_ytd
+    description: Count of orders.
+    label: Orders YTD
+    type: cumulative
+    type_params:
+      measure: order_count
+      grain_to_date: year
+

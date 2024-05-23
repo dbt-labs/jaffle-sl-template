@@ -59,9 +59,20 @@ semantic_models:
       - name: lifetime_spend
         agg: sum
         description: Gross customer lifetime spend inclusive of taxes.
+      - name: customers
+        description: count of customers
+        agg: sum
+        expr: 1
+        create_metric: true
+
 
 metrics:
   # Simple metrics
+  - name: activated_customers
+    type: simple
+    label: Activated Customers
+    type_params:
+      measure: customers
   - name: customers_with_orders
     description: "Distict count of customers placing orders"
     type: simple
@@ -74,9 +85,46 @@ metrics:
     type: simple
     type_params:
       measure: customers_with_orders
-    filter: |
-      {{ Dimension('customer__customer_type') }}  = 'new'
+  - name: activated_customers_to_customers
+    description: test
+    label: Activated Customers Ratio
+    type: ratio
+    type_params:
+      numerator: 
+        name: activated_customers
+        alias: test_alias
+      denominator: 
+        name: customers
+        alias: denom_alias
+  - name: cumulative_customers
+    description: test cumulative filter
+    label: cumulative_customers
+    type: cumulative
+    type_params:
+      measure: customers
 
+
+  - name: test_derived_metric
+    description: test
+    type: derived
+    label: test_m_as_d
+    type_params:
+      expr: activated_customers_to_customers - activated_customers
+      metrics:
+        - name: activated_customers_to_customers
+        - name: activated_customers
+
+  - name: test_conversion_metric
+    description: The metric description # Optional
+    type: conversion # Required
+    label: test_conversion # Required
+    type_params: # Required
+      conversion_type_params: # Required
+        entity: customer # Required
+        base_measure: 
+          name: customers
+        conversion_measure:
+          name: order_count
 saved_queries:
   - name: new_customer_orders
     description: New customer orders by name and time
@@ -91,7 +139,7 @@ saved_queries:
     exports:
       - name: new_customer_orders
         config:
-          export_as: table
+          export_as:  table
       - name: new_customer_orders_view
         config:
           export_as: view
