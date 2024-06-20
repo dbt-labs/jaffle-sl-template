@@ -25,6 +25,7 @@ semantic_models:
         type: categorical
       - name: is_drink_item
         type: categorical
+        description: Denoting whether it's a drink item
     measures:
       - name: revenue
         description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
