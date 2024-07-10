@@ -1,5 +1,6 @@
 
 -- metricflow_time_spine.sql
+-- asd
 with 
 
 days as (
