@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: ecom
-    schema: '{{ target.schema }}'
+    schema: dbt_sl_test
     description: E-commerce data
     tables:
       - name: raw_customers
