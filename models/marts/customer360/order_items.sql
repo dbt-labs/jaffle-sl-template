@@ -42,8 +42,7 @@ joined as (
         order_supplies_summary.supply_cost,
         products.is_food_item,
         products.is_drink_item,
-        orders.ordered_at,
-        1 AS test
+        orders.ordered_at
 
     from order_items
 
