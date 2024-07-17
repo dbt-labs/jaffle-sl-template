@@ -140,6 +140,7 @@ metrics:
     description: Count of orders that contain food order items
     label: Food Orders
     type: simple
+    # test
     type_params:
       measure: order_count
     filter: |
@@ -151,3 +152,4 @@ metrics:
     type_params:
       measure: order_count
       window: 7 days
+# // test
