@@ -43,6 +43,7 @@ semantic_models:
         type: categorical
       - name: first_ordered_at
         type: time
+        expr: cast(first_orderered_at as DATETIME)
         type_params:
           time_granularity: day
       - name: last_ordered_at
