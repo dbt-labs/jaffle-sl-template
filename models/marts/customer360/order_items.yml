@@ -21,6 +21,11 @@ semantic_models:
         type: time
         type_params:
           time_granularity: day
+      - name: ordered_at_test
+        expr: cast(ordered_at as DATETIME)
+        type: time
+        type_params:
+          time_granularity: day
       - name: is_food_item
         type: categorical
       - name: is_drink_item
@@ -41,7 +46,10 @@ semantic_models:
         expr: case when is_drink_item = 1 then product_price else 0 end
       - name: median_revenue
         description: The median revenue generated for each order item.
-        agg: median
+        agg: percentile
+        agg_params:
+          percentile: .5
+          use_approximate_percentile: True 
         expr: product_price
 
 groups:
@@ -66,12 +74,16 @@ metrics:
       measure: 
         name: revenue
         fill_nulls_with: 0
+        join_to_timespine: true
   - name: order_cost
     description: Sum of cost for each order item.
     label: Order Cost
     type: simple
     type_params:
-      measure: order_cost
+      measure: 
+        name: order_cost
+        join_to_timespine: true
+        fill_nulls_with: 0
   - name: median_revenue
     description: The median revenue for each order item. Excludes tax.
     type: simple
@@ -125,8 +137,8 @@ metrics:
     type: cumulative
     type_params:
       measure: revenue
-      cumulative_type_params:
-        period_agg: last
+      # cumulative_type_params:
+      #   period_agg: last
 
 saved_queries:
   - name: order_metrics
@@ -161,3 +173,19 @@ saved_queries:
       - name: weekly_revenue
         config:
           export_as: table
+  - name: order_cost_time_spine_test
+    query_params:
+      metrics: 
+        - revenue
+      group_by:
+        - TimeDimension('metric_time', 'day')
+      where:
+        # -  "{{TimeDimension('metric_time', 'day')}} >= 
+        #     CASE
+        #         WHEN EXTRACT(day FROM CURRENT_DATE AT TIME ZONE 'America/New_York') > 14 THEN 
+        #             DATEADD(month, 1, DATE_TRUNC(month, CURRENT_DATE AT TIME ZONE 'America/New_York'))
+        #         WHEN EXTRACT(day FROM CURRENT_DATE AT TIME ZONE 'America/New_York') <= 14 THEN 
+        #             DATE_TRUNC(month, CURRENT_DATE AT TIME ZONE 'America/New_York')
+        #         ELSE NULL 
+        #     END"
+        -  "{{TimeDimension('order_item__ordered_at_test', 'month')}}>= '2020-01-01'"
