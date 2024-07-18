@@ -128,8 +128,8 @@ metrics:
     type: cumulative
     type_params:
       measure: revenue
-      cumulative_type_params:
-        period_agg: last
+      # cumulative_type_params:
+      #   period_agg: last
 
 saved_queries:
   - name: order_metrics
