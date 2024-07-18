@@ -188,4 +188,5 @@ saved_queries:
         #             DATE_TRUNC(month, CURRENT_DATE AT TIME ZONE 'America/New_York')
         #         ELSE NULL 
         #     END"
-        -  "{{TimeDimension('order_item__ordered_at_test', 'month')}}>= '2020-01-01'"
+        # -  "{{TimeDimension('order_item__ordered_at_test', 'month')}}>= '2020-01-01'"
+        -  "{{TimeDimension('metric_time', 'month')}}>= '2020-01-01'"
