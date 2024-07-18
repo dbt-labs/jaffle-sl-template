@@ -17,7 +17,7 @@ semantic_models:
         expr: product_id
     dimensions:
       - name: ordered_at
-        expr: cast(ordered_at as DATETIME)
+        expr: cast(ordered_at as DATE)
         type: time
         type_params:
           time_granularity: day
@@ -41,7 +41,10 @@ semantic_models:
         expr: case when is_drink_item = 1 then product_price else 0 end
       - name: median_revenue
         description: The median revenue generated for each order item.
-        agg: median
+        agg: percentile
+        agg_params:
+          percentile: .5
+          use_approximate_percentile: True 
         expr: product_price
 
 groups:
@@ -125,8 +128,8 @@ metrics:
     type: cumulative
     type_params:
       measure: revenue
-      cumulative_type_params:
-        period_agg: last
+      # cumulative_type_params:
+      #   period_agg: last
 
 saved_queries:
   - name: order_metrics
