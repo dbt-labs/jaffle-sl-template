@@ -41,7 +41,10 @@ semantic_models:
         expr: case when is_drink_item = 1 then product_price else 0 end
       - name: median_revenue
         description: The median revenue generated for each order item.
-        agg: median
+        agg: percentile
+        agg_params:
+          percentile: .5
+          use_approximate_percentile: True 
         expr: product_price
 
 groups:
@@ -73,12 +76,11 @@ metrics:
     type_params:
       measure: order_cost
   - name: median_revenue
-    description: The median revenue generated for each order item.
-    agg: percentile
-    agg_params:
-      percentile: .5
-      use_approximate_percentile: True 
-      expr: product_price
+    description: The median revenue for each order item. Excludes tax.
+    type: simple
+    label: Median Revenue
+    type_params:
+      measure: median_revenue
   - name: food_revenue
     description: The revenue from food in each order
     label: Food Revenue
