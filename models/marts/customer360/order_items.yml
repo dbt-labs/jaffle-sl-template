@@ -26,10 +26,6 @@ semantic_models:
       - name: is_drink_item
         type: categorical
         description: Denoting whether it's a drink item
-      - name: test_character
-        type: categorical
-        label: 市町村名
-        description: 市町村など名称
     measures:
       - name: revenue
         description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
@@ -96,13 +92,6 @@ metrics:
   - name: food_revenue_pct
     description: The % of order revenue from food.
     label: Food Revenue %
-    type: ratio
-    type_params:
-      numerator: food_revenue
-      denominator: revenue
-  - name: food_revenue_pct_special_character
-    label: 市町村名
-    description: 市町村など名称
     type: ratio
     type_params:
       numerator: food_revenue
