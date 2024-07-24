@@ -100,6 +100,14 @@ metrics:
     type_params:
       numerator: food_revenue
       denominator: revenue
+  - name: food_revenue_pct_special_character
+    label: 市町村名
+    description: 市町村など名称
+    type: ratio
+     type_params:
+      numerator: food_revenue
+      denominator: revenue
+    
 
   #Derived Metrics
   - name: revenue_growth_mom
