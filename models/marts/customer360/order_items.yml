@@ -104,7 +104,7 @@ metrics:
     label: 市町村名
     description: 市町村など名称
     type: ratio
-     type_params:
+    type_params:
       numerator: food_revenue
       denominator: revenue
     
