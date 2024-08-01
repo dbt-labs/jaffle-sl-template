@@ -31,6 +31,11 @@ semantic_models:
         description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
         agg: sum
         expr: product_price
+      - name: average_revenue
+        description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
+        agg: average
+        expr: product_price
+        create_metric: true
       - name: food_revenue
         description: The revenue generated for each order item. Revenue is calculated as a sum of revenue associated with each product in an order.
         agg: sum
