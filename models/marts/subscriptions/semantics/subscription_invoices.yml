@@ -1,0 +1,63 @@
+semantic_models:
+  - name: subscription_invoices
+    defaults:
+      agg_time_dimension: created_at
+    description: |
+      Subscription invoices mart.
+    model: ref('subscription_invoices')
+    entities:
+      - name: invoice
+        expr: invoice_id
+        type: primary
+      - name: subscription
+        expr: subscription_id
+        type: foreign
+    dimensions:
+      - name: created_at
+        type: time
+        type_params:
+          time_granularity: day
+      - name: paid_at
+        type: time
+        type_params:
+          time_granularity: day
+      - name: status
+        type: categorical
+    measures:
+      - name: invoices
+        description: Total count of invoices.
+        agg: sum
+        expr: 1
+        create_metric: true
+      - name: total_amount
+        description: Total amount of invoices.
+        agg: sum
+        expr: amount
+        create_metric: true
+
+metrics:
+  - name: paid_invoices
+    description: "Count of paid invoices"
+    type: simple
+    label: Paid Invoices
+    type_params:
+      measure: invoices
+    filter:
+      "{{Dimension('subscription_invoice__status')}} = 'paid'"
+  - name: unpaid_invoices
+    description: "Count of unpaid invoices"
+    type: simple
+    label: Unpaid Invoices
+    type_params:
+      measure: invoices
+    filter:
+      "{{Dimension('subscription_invoice__status')}} = 'unpaid'"
+  - name: payment_rate
+    description: "Invoice payment rate"
+    type: derived
+    label: Payment Rate
+    type_params:
+      expr: paid_invoices / invoices
+      metrics:
+        - paid_invoices
+        - invoices

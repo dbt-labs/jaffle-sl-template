@@ -1,0 +1,75 @@
+semantic_models:
+  - name: subscriptions
+    defaults:
+      agg_time_dimension: start_date
+    description: |
+      Subscription grain mart.
+    model: ref('subscriptions')
+    entities:
+      - name: subscription
+        expr: subscription_id
+        type: primary
+      - name: customer
+        expr: customer_id
+        type: foreign
+      - name: plan
+        expr: plan_id
+        type: foreign
+    dimensions:
+      - name: status
+        type: categorical
+      - name: start_date
+        type: time
+        type_params:
+          time_granularity: hour
+      - name: end_date
+        type: time
+        type_params:
+          time_granularity: hour
+      - name: canceled_at
+        type: time
+        type_params:
+          time_granularity: hour
+    measures:
+      - name: subscriptions
+        description: Total count of subscriptions.
+        agg: sum
+        expr: 1
+        agg_time_dimension: canceled_at
+        create_metric: true
+
+metrics:
+  - name: active_subscriptions
+    description: "Count of active subscriptions"
+    type: simple
+    label: Active Subscriptions
+    type_params:
+      measure: subscriptions
+    filter:
+      "{{Dimension('subscription__status')}} = 'active'"
+  - name: churned_subscriptions
+    description: Count of churned subscriptions
+    type: simple
+    label: Churned Subscriptions
+    type_params:
+      measure: subscriptions
+    filter:
+      "{{Dimension('subscription__status')}} = 'cancelled'"
+      
+  - name: churn_rate
+    description: "Subscription churn rate"
+    type: derived
+    label: Churn Rate
+    type_params:
+      expr: churned_subscriptions / subscriptions
+      metrics:
+        - churned_subscriptions
+        - subscriptions
+
+  - name: subscriptions_cumulative
+    description: "Cumulative count of active subscriptions"
+    type: cumulative
+    label: Cumulative Subscriptions
+    time_granularity: hour
+    type_params:
+      measure: subscriptions
