@@ -1,0 +1,7 @@
+models:
+  - name: time_spine
+    time_spine:
+      standard_granularity_column: date_day # column for the standard grain of your table
+    columns:
+      - name: date_day
+        granularity: day # set granularity at column-level for standard_granularity_column
