@@ -35,7 +35,6 @@ semantic_models:
         description: Total count of subscriptions.
         agg: sum
         expr: 1
-        agg_time_dimension: canceled_at
         create_metric: true
 
 metrics:
@@ -47,6 +46,14 @@ metrics:
       measure: subscriptions
     filter:
       "{{Dimension('subscription__status')}} = 'active'"
+  - name: active_subscriptions_same
+    description: "Count of active subscriptions"
+    type: simple
+    label: Active Subscriptions_
+    type_params:
+      measure: subscriptions
+    filter:
+      "{{ Dimension('subscription__status') }} = 'active'"
   - name: churned_subscriptions
     description: Count of churned subscriptions
     type: simple

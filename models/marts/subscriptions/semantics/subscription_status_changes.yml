@@ -1,0 +1,28 @@
+semantic_models:
+  - name: subscription_status_changes
+    defaults:
+      agg_time_dimension: start_date
+    description: |
+      Subscription grain mart.
+    model: ref('subscriptions')
+    primary_entity: subscription_status_change
+    entities:
+      - name: subscription
+        expr: subscription_id
+        type: natural
+    dimensions:
+      - name: scd_status
+        type: categorical
+        expr: status
+      - name: start_date
+        type: time
+        type_params:
+          time_granularity: hour
+          validity_params:
+            is_start: true
+      - name: canceled_at
+        type: time
+        type_params:
+          time_granularity: hour
+          validity_params:
+            is_end: true
