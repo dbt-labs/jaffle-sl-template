@@ -1,0 +1,48 @@
+semantic_models:
+- name: subscription_invoices
+  description: Subscription invoices fact table. This table contains one row per invoice
+    and includes the invoice timestamp.
+  model: ref('subscription_invoices')
+  defaults:
+    agg_time_dimension: date
+  entities:
+  - name: invoice
+    type: primary
+    expr: invoice_id
+  - name: subscription
+    type: foreign
+    expr: subscription_id
+  dimensions:
+  - name: period_start
+    type: time
+    type_params:
+      time_granularity: day
+  - name: period_end
+    type: time
+    type_params:
+      time_granularity: day
+  - name: status
+    type: categorical
+  - name: created_at
+    type: time
+    type_params:
+      time_granularity: day
+  - name: date
+    expr: invoice_date
+    type: time
+    type_params:
+      time_granularity: day
+  measures:
+  - name: total_subscription_amount
+    description: The total amount of the invoice.
+    expr: total_amount
+    agg: sum
+    create_metric: true
+  - name: count_invoice
+    agg: count
+    create_metric: true
+    expr: invoice_id
+  - name: count_subscription
+    agg: count_distinct
+    create_metric: true
+    expr: subscription_id
