@@ -51,6 +51,15 @@ semantic_models:
           percentile: .5
           use_approximate_percentile: True 
         expr: product_price
+      - name: p90_revenue
+        description: The p90 revenue generated for each order item.
+        agg: percentile
+        agg_params:
+          percentile: .9
+          use_approximate_percentile: True 
+        expr: product_price
+        create_metric: true
+
 
 groups:
   - name: finance

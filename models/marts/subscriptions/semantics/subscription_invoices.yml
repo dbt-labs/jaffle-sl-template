@@ -32,7 +32,6 @@ semantic_models:
       - name: total_amount
         description: Total amount of invoices.
         agg: sum
-        expr: amount
         create_metric: true
 
 metrics:
