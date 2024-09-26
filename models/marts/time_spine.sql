@@ -12,7 +12,8 @@ days as (
 cast_to_date as (
 
     select 
-        cast(date_day as date) as date_day
+        cast(date_day as date) as date_day,
+        date_trunc('quarter', date_day) as fiscal_quarter
     
     from days
 
