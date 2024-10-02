@@ -2,6 +2,10 @@ models:
   - name: time_spine
     time_spine:
       standard_granularity_column: date_day # column for the standard grain of your table
+      custom_granularities:
+        - name: fiscal_quarter
+          column_name: almost_fiscal_quarter
     columns:
       - name: date_day
         granularity: day # set granularity at column-level for standard_granularity_column
+      - name: fiscal_quarter
