@@ -8,4 +8,4 @@ models:
     columns:
       - name: date_day
         granularity: day # set granularity at column-level for standard_granularity_column
-      - name: fiscal_quarter
+      - name: almost_fiscal_quarter
