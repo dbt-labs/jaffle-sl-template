@@ -4,12 +4,12 @@ models:
     columns:
       - name: order_id
         description: The unique key of the orders mart.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: customer_id
         description: The foreign key relating to the customer who placed the order.
-        tests:
+        data_tests:
           - relationships:
               to: ref('stg_customers')
               field: customer_id

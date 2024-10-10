@@ -4,7 +4,7 @@ models:
     columns:
       - name: customer_id
         description: The unique key of the orders mart.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: customer_name
@@ -21,7 +21,7 @@ models:
         description: The sum of all the order totals (including tax) that a customer has ever placed.
       - name: customer_type
         description: Options are 'new' or 'returning', indicating if a customer has ordered more than once or has only placed their first order to date.
-        tests:
+        data_tests:
           - accepted_values:
               values: ["new", "returning"]
 

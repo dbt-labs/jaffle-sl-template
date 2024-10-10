@@ -4,6 +4,6 @@ models:
     columns:
       - name: order_id
         description: The unique key for each order.
-        tests:
+        data_tests:
           - not_null
           - unique
