@@ -120,11 +120,11 @@ metrics:
     type_params:
       measure: order_count
   - name: orders_fill_nulls_with_zero
-    description: Example metric colaescing null to zero. 
+    description: Example metric colaescing null to zero.
     label: Orders (Fill nulls with 0)
     type: simple
     type_params:
-      measure: 
+      measure:
         name: order_count
         fill_nulls_with: 0
         join_to_timespine: true
@@ -151,5 +151,6 @@ metrics:
     type: cumulative
     type_params:
       measure: order_count
-      window: 7 days
+      cumulative_type_params:
+        window: 7 days
 # // test
