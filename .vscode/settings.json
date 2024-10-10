@@ -6,7 +6,7 @@
     "editor.defaultFormatter": "dorzey.vscode-sqlfluff",
     "editor.formatOnSave": false
   },
-  "editor.acceptSuggestionOnEnter": true,
+  "editor.acceptSuggestionOnEnter": "on",
   "editor.quickSuggestions": {
     "other": false,
     "comments": false,
