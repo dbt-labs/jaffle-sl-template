@@ -18,3 +18,7 @@ dbt-core/
 cloud-env
 core-env
 core-env-2
+
+# pixi environments
+.pixi
+*.egg-info
