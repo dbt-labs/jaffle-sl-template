@@ -164,8 +164,7 @@ saved_queries:
     query_params:
       metrics:
         - revenue
-      group_by:
-        - TimeDimension('metric_time', 'week')
+        - order_total
     exports:
       - name: weekly_revenue
         config:

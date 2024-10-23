@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: ecom
-    schema: dbt_sl_test
+    schema: dev_willdeng_prod
     description: E-commerce data
     tables:
       - name: raw_customers
@@ -33,7 +33,7 @@ sources:
       - name: raw_supplies
         description: One record per supply per SKU of items sold in stores
   - name: conversion_sources
-    schema: '{{ target.schema }}'
+    schema: dev_willdeng_prod
     description: Source data for conversion metrics
     tables:
       - name: olist_closed_deals_dataset
