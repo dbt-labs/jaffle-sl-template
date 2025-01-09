@@ -13,10 +13,16 @@ semantic_models:
       - name: customer
         type: primary
         expr: customer_id
+        config:
+          meta:
+            contains_pii: false
     #Dimensions. Either categorical or time. These add additonal context to metrics. The typical querying pattern is Metric by Dimension.
     dimensions:
       - name: customer_name
         type: categorical
+        config:
+          meta:
+            contains_pii: true
       - name: count_lifetime_orders
         type: categorical
       - name: lifetime_spend
