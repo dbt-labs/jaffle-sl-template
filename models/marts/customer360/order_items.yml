@@ -102,18 +102,18 @@ metrics:
     
 
   #Derived Metrics
-  - name: revenue_growth_mom
-    description: "Percentage growth of revenue compared to 1 month ago. Excluded tax"
-    type: derived
-    label: Revenue Growth % M/M
-    type_params:
-      expr: (current_revenue - revenue_prev_month)*100/revenue_prev_month
-      metrics:
-        - name: revenue
-          alias: current_revenue
-        - name: revenue
-          offset_window: 1 month
-          alias: revenue_prev_month
+  # - name: revenue_growth_mom
+  #   description: "Percentage growth of revenue compared to 1 month ago. Excluded tax"
+  #   type: derived
+  #   label: Revenue Growth % M/M
+  #   type_params:
+  #     expr: (current_revenue - revenue_prev_month)*100/revenue_prev_month
+  #     metrics:
+  #       - name: revenue
+  #         alias: current_revenue
+  #       - name: revenue
+  #         offset_window: 1 month
+  #         alias: revenue_prev_month
   - name: order_gross_profit
     description: Gross profit from each order.
     type: derived
@@ -126,14 +126,14 @@ metrics:
           alias: cost
 
   #Cumulative Metrics
-  - name: cumulative_revenue
-    description: The cumulative revenue for all orders.
-    label: Cumulative Revenue (All Time)
-    type: cumulative
-    type_params:
-      measure: revenue
-      # cumulative_type_params:
-      #   period_agg: last
+  # - name: cumulative_revenue
+  #   description: The cumulative revenue for all orders.
+  #   label: Cumulative Revenue (All Time)
+  #   type: cumulative
+  #   type_params:
+  #     measure: revenue
+  #     # cumulative_type_params:
+  #     #   period_agg: last
 
 saved_queries:
   - name: order_metrics
