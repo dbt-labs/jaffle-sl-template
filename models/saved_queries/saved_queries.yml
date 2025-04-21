@@ -34,3 +34,8 @@ saved_queries:
       - name: new_customers
         config:
           export_as: table
+  - name: total_orders_full_aggregate
+    description: All orders placed
+    query_params:
+      metrics:
+        - orders
