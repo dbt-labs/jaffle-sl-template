@@ -170,3 +170,8 @@ saved_queries:
       - name: weekly_revenue
         config:
           export_as: table
+  - name: total_orders_full_aggregate
+    description: All orders placed
+    query_params:
+      metrics:
+        - orders
