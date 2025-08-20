@@ -1,6 +1,6 @@
 models:
   - name: customers
-    description: 'Customer overview data mart, offering key details for each unique customer. This contains one row per customer. 
+    description: 'Customer overview data mart, offering key details for each unique customer. This contains one row per customer.'
     columns:
       - name: customer_id
         description: The unique key of the orders mart.
@@ -8,7 +8,7 @@ models:
           - not_null
           - unique
       - name: customer_name
-        description: Customers' full name.
+        description: Customers full name.
       - name: count_lifetime_orders
         description: Total number of orders a customer has ever placed.
       - name: first_ordered_at
