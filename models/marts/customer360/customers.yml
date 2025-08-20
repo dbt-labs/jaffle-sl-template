@@ -1,6 +1,6 @@
 models:
   - name: customers
-    description: Customer overview data mart, offering key details for each unique customer (One row per customer)
+    description: 'Customer overview data mart, offering key details for each unique customer. This contains one row per customer. 
     columns:
       - name: customer_id
         description: The unique key of the orders mart.

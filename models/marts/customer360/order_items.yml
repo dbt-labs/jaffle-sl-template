@@ -65,8 +65,6 @@ groups:
 metrics:
   # Simple metrics
   - name: revenue
-    config:
-      group: finance
     description: Sum of the product revenue for each order item. Excludes tax.
     type: simple
     label: Revenue
@@ -139,6 +137,7 @@ metrics:
 
 saved_queries:
   - name: order_metrics
+    label: order metrics
     description: Relevant order metrics
     query_params:
       metrics:
@@ -160,6 +159,7 @@ saved_queries:
       cache:
         enabled: true
   - name: weekly_revenue
+    label: weekly revenue
     description: Weekly revenue
     query_params:
       metrics:
@@ -170,3 +170,8 @@ saved_queries:
       - name: weekly_revenue
         config:
           export_as: table
+  - name: total_orders_full_aggregate
+    description: All orders placed
+    query_params:
+      metrics:
+        - orders
