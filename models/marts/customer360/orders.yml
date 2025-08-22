@@ -119,23 +119,23 @@ metrics:
     type: simple
     type_params:
       measure: order_count
-  - name: orders_fill_nulls_with_zero
-    description: Example metric colaescing null to zero. 
-    label: Orders (Fill nulls with 0)
-    type: simple
-    type_params:
-      measure: 
-        name: order_count
-        fill_nulls_with: 0
-        join_to_timespine: true
-  - name: twice_orders_fill_nulls_with_0
-    description: Example derived metric.
-    label: Twice Orders
-    type: derived
-    type_params:
-      expr: 2 * orders_fill_nulls_with_zero
-      metrics:
-        - orders_fill_nulls_with_zero
+  # - name: orders_fill_nulls_with_zero
+  #   description: Example metric colaescing null to zero. 
+  #   label: Orders (Fill nulls with 0)
+  #   type: simple
+  #   type_params:
+  #     measure: 
+  #       name: order_count
+  #       fill_nulls_with: 0
+  #       join_to_timespine: true
+  # - name: twice_orders_fill_nulls_with_0
+  #   description: Example derived metric.
+  #   label: Twice Orders
+  #   type: derived
+  #   type_params:
+  #     expr: 2 * orders_fill_nulls_with_zero
+  #     metrics:
+  #       - orders_fill_nulls_with_zero
   - name: food_orders
     description: Count of orders that contain food order items
     label: Food Orders
@@ -145,11 +145,11 @@ metrics:
       measure: order_count
     filter: |
       {{ Dimension('order_id__is_food_order') }} = true
-  - name: orders_last_7_days
-    description: Count of orders.
-    label: orders last 7 days
-    type: cumulative
-    type_params:
-      measure: order_count
-      window: 7 days
-# // test
+#   - name: orders_last_7_days
+#     description: Count of orders.
+#     label: orders last 7 days
+#     type: cumulative
+#     type_params:
+#       measure: order_count
+#       window: 7 days
+# # // test
